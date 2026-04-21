@@ -29,9 +29,9 @@ url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
 st.sidebar.image(logofile, use_container_width=True)
 st.sidebar.caption("Select a stock, train the algorithm and predict scenarios")
 st.sidebar.link_button("Access Pro for a day!", url_stripe, type="primary",
-                       disabled=False)
+                       disabled=False, use_container_width=True)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                       disabled=False)
+                       disabled=False, use_container_width=True)
 # Icons and Links ###########################
 ytube = f'{direc}/pages/appdata/imgs/ytube.svg'
 fbook = f'{direc}/pages/appdata/imgs/fbook.svg'
