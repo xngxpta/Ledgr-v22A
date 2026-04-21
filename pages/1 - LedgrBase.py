@@ -42,9 +42,9 @@ st.logo(logofile, size="medium", link='https://alphaledgr.com/',
 st.sidebar.image(logofile)
 st.sidebar.caption("View Markets, get info on funds & monitor your Holdings!")
 st.sidebar.link_button("Access Ledgr/Day!", url_stripe, type="primary",
-                       disabled=False)
+                       disabled=False, use_container_width="True")
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                        disabled=False)
+                        disabled=False, use_container_width="True")
 start_date = dt.datetime(2021, 1, 1)
 end_date = dt.datetime.today()
 altstart = dt.datetime(2023, 1, 1)
