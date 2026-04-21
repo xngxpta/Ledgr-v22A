@@ -67,9 +67,9 @@ url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
 choicelist = ["Prophet", "LSTM", "Others"]
 st.write("  ---------------------------------------------------------------  ")
 st.sidebar.link_button("Try Ledgr Pro!", url_stripe, type="primary",
-                       disabled=False)
+                       disabled=False, use_container_width="True")
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                       disabled=False)
+                       disabled=False, use_container_width="True")
 st.title("Forecast Price Ranges.")
 st.header("Just select a stock ticker.", divider='rainbow')
 
