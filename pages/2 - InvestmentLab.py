@@ -82,9 +82,9 @@ st.sidebar.caption(
 url_stripe = "https://book.stripe.com/9B6bJ3gWS87G97b80q0480f"
 url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
 st.sidebar.link_button("Try Ledgr Pro!", url_stripe, type="primary",
-                       disabled=False, use_container_width="True")
+                       disabled=False, use_container_width=True)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                    disabled=False, use_container_width="True")
+                    disabled=False, use_container_width=True)
 # #############################################################
 bc1, bc2 = st.columns(2)
 with bc1:
