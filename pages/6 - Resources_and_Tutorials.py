@@ -24,9 +24,9 @@ with st.sidebar:
     st.image(logofile, use_container_width=True)
     st.caption("The How-to's, Docs, Demos and your Queries")
     st.link_button("Access Ledgr/day!", url_stripe, type="primary",
-                   disabled=False)
+                   disabled=False, use_container_width=True)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                       disabled=False)
+                       disabled=False, use_container_width=True)
 # Icons and Links ###########################
 ytube = f'{direc}/pages/appdata/imgs/ytube.svg'
 fbook = f'{direc}/pages/appdata/imgs/fbook.svg'
