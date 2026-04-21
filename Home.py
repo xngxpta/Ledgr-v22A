@@ -43,7 +43,7 @@ url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
 st.sidebar.link_button("Access Pro / Day!", url_stripe, type="primary",
                         disabled=False, use_container_width=True)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                    disabled=False, use_container_width=True)
+                       disabled=False, use_container_width=True)
 st.markdown(
             '''
             <div align="center">
