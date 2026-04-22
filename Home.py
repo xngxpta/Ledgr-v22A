@@ -11,9 +11,21 @@ import matplotlib.animation as animation
 # from auth.google_auth import get_google_login
 # from auth.stripe_gate import check_subscription
 import streamlit_authenticator as stauth
-# from auth.session import init_session
+import streamlit.components.v1 as components
 
+GA_ID = "G- G-4MRDCEFGB4 "
 
+gtag_html = f"""
+<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', '{GA_ID}');
+</script>
+"""
+# Embed the script
+components.html(gtag_html, height=0)
 
 direc = os.getcwd()
 css_file=f"{direc}/template1_style.css"
