@@ -13,7 +13,7 @@ direc = os.getcwd()
 logofile = f'{direc}/pages/appdata/imgs/Ledgr_Logo_F2.png'
 st.logo(logofile, size="medium", link='https://alphaledgr.com/',
         icon_image=logofile)
-url_stripe = "https://buy.stripe.com/9B6bJ3gWS87G97b80q0480f"
+url_stripe = "https://book.stripe.com/cNi6oJ3625Zy97b94u0480g"
 url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
 url_ytube = "https://www.youtube.com/@LedgrInc"
 url_fb = "https://www.facebook.com/share/1BnXaYvRzV/"
