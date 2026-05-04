@@ -36,7 +36,11 @@ st.logo(logofile, size="medium", link='https://alphaledgr.com/',
         icon_image=logofile)
 with st.sidebar:
     st.image(logofile, use_container_width=True)
-    st.caption("Select a stock, train the algorithm and predict scenarios.")
+    st.caption("Select a stock, train the algorithm and predict future scenarios.")
+
+st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+st.stop()
 # Variables & Declarations ###############################################
 
 
