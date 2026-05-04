@@ -62,7 +62,9 @@ with mx2:
 with mx3:
     st.write(' ')
 
-st.warning("Please Click the Access/Day @ INR 79/- to access the complete set of tools!!")
+st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+
 st.stop()
 with st.form(key="Input Assset Info", enter_to_submit=True, border=True):
     stock = st.selectbox("Choose Stock Ticker", tickerlist)
