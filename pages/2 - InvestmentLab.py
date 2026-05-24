@@ -96,6 +96,10 @@ with bc2:
     st.video("https://youtu.be/wu0nDaMyIG4?si=f7Y0v_I_Am7JwGe6")
 
 
+st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+
+st.stop()
 # ##################################################
 with st.form("pfinputs"):
     st.subheader("Inputs for Optimization & Allocation")
