@@ -1228,7 +1228,6 @@ with st.container(border=True):
         st.info("""The MACD Signal Plot indicates The MACD signal line is a 9-period exponential moving average (EMA) of the MACD line itself
 . It helps generate buy and sell signals when the MACD line crosses above or below it.""")
     elif choix1 == "Average Directional Movement Index (ADX)":
-
         adx_last, fig_adx, fig_adx_sig = adx(df)
         adx1, adx2, adx3 = st.columns([2, 1, 1])
         with adx1:
