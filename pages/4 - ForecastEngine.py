@@ -31,7 +31,16 @@ import os
 direc = os.getcwd()
 
 logofile = f'{direc}/pages/appdata/imgs/Ledgr_Logo_F2.png'
-url_stripe = "https://buy.stripe.com/9B6bJ3gWS87G97b80q0480f"
+# url_stripe = "https://buy.stripe.com/9B6bJ3gWS87G97b80q0480f"
+url_stripe = "https://book.stripe.com/cNi6oJ3625Zy97b94u0480g"
+url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
+# authenticator.logout("Logout", "sidebar")
+st.sidebar.image(logofile, use_container_width=True)
+st.sidebar.caption("Select a stock, train the algorithm and predict scenarios")
+st.sidebar.link_button("Access Pro for a day!", url_stripe, type="primary",
+                       disabled=False, use_container_width=True)
+st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
+                       disabled=False, use_container_width=True)
 st.logo(logofile, size="medium", link='https://alphaledgr.com/',
         icon_image=logofile)
 with st.sidebar:
@@ -39,7 +48,13 @@ with st.sidebar:
     st.caption("Select a stock, train the algorithm and predict future scenarios.")
 
 st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+
+st.link_button("Access Pro for a day!", url_stripe, type="primary",
+                       disabled=False, use_container_width=True)
 st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+
+st.link_button("Become a Patron!", url_stripe_2, type="secondary",
+                       disabled=False, use_container_width=True)
 st.stop()
 # Variables & Declarations ###############################################
 
