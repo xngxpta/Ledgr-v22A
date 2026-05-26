@@ -71,7 +71,7 @@ with st.container():
         with k11:
             st.write(" ")
         with k12:
-            st.link_button("Ledgr's Business Model Canvas",
+            st.link_button("Ledgr's Business Model",
                            "https://www.alphaledgr.com/blog")
             st.write(" ")
 
