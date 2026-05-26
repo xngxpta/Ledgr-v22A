@@ -111,6 +111,12 @@ with st.container():
 
 st.write("-------------------------------------------------------------------")
 
+st.link_button("Access Pro for a day!", url_stripe, type="primary",
+                       disabled=False, use_container_width=True)
+st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+
+st.link_button("Become a Patron!", url_stripe_2, type="secondary",
+                       disabled=False, use_container_width=True)
 
 with st.container():
     column1, column2, column3, column4, column5 = st.columns([1, 1, 1, 2, 1])
