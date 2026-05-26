@@ -65,6 +65,12 @@ with mx3:
 st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
 st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
 
+st.link_button("Access Pro for a day!", url_stripe, type="primary",
+                       disabled=False, use_container_width=True)
+st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+
+st.link_button("Become a Patron!", url_stripe_2, type="secondary",
+                       disabled=False, use_container_width=True)
 st.stop()
 with st.form(key="Input Assset Info", enter_to_submit=True, border=True):
     stock = st.selectbox("Choose Stock Ticker", tickerlist)
