@@ -6,8 +6,8 @@ import os
 import urllib
 from streamlit_pdf_viewer import pdf_viewer
 
-st.set_page_config(page_title='Ledgr | About & Tutorials', layout="wide",
-                   initial_sidebar_state="expanded")
+# st.set_page_config(page_title='Ledgr | About & Tutorials', layout="wide",
+ #                  initial_sidebar_state="expanded")
 
 direc = os.getcwd()
 logofile = f'{direc}/pages/appdata/imgs/Ledgr_Logo_F2.png'
