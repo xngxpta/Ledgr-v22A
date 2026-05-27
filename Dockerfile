@@ -8,7 +8,7 @@
 #CMD ["streamlit", "run", "Home.py", "--server.port=8501", "--server.address=0.0.0.0"]
 
 
-FROM python:3.12-slim
+FROM python:3.11-slim
 
 
 # we probably need build tools?
