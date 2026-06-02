@@ -33,12 +33,12 @@ st.set_page_config(page_title='Ledgr | Analytics', layout="wide",
                    initial_sidebar_state="expanded")
 
 
-url_stripe = "https://book.stripe.com/cNi6oJ3625Zy97b94u0480g"
+url_stripe = "https://book.stripe.com/9B6bJ3gWS87G97b80q0480f"
 url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
 st.sidebar.link_button("Try Ledgr Pro!", url_stripe, type="primary",
-                       disabled=False, use_container_width=True)
+                       disabled=False)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                       disabled=False, use_container_width=True)
+                       disabled=False)
 pathtkr = f"{direc}/pages/appdata/tickerlist_y.csv"
 # Icons and Links ###########################
 ytube = f'{direc}/pages/appdata/imgs/ytube.svg'
@@ -83,7 +83,8 @@ with mx2:
 #with x3:
 #    st.subheader("Day's Leading Performers")
 #    st.write(df_tg)
-
+st.warning("Please Click the Access/Day @ INR 79/- to access the complete set of tools!!")
+st.stop()
 # Form and Inputs ############################################################
 
 
@@ -1227,7 +1228,9 @@ with st.container(border=True):
         st.plotly_chart(fig_macd_signal, use_container_width=True)
         st.info("""The MACD Signal Plot indicates The MACD signal line is a 9-period exponential moving average (EMA) of the MACD line itself
 . It helps generate buy and sell signals when the MACD line crosses above or below it.""")
+
     elif choix1 == "Average Directional Movement Index (ADX)":
+
         adx_last, fig_adx, fig_adx_sig = adx(df)
         adx1, adx2, adx3 = st.columns([2, 1, 1])
         with adx1:
