@@ -117,8 +117,7 @@ def hi_lo(df):
     return dh14, dh3, df_14L, df_14H, df_3L, df_3H, dl3, dl14, dh_52, dh52, dl_52, dl52, dh_25, dh25, dl_25, dl25
 
 
-dh14, dh3, df_14L, df_14H, df_3L, df_3H, dl3, dl14, dh_52, dh52, dl_52, dl52, dh_25, dh25, dl_25, dl25 = hi_lo(
-    df)
+dh14, dh3, df_14L, df_14H, df_3L, df_3H, dl3, dl14, dh_52, dh52, dl_52, dl52, dh_25, dh25, dl_25, dl25 = hi_lo(df)
 
 
 trendlist = pd.Series(["Moving Averages (MA)", "Moving Average Convergence Divergence (MACD)", "Average Directional Movement Index (ADX)", "Trix (TRIX)", "Mass Index (MI)", "Commodity Channel Index (CCI)",
