@@ -819,7 +819,7 @@ def ui(df):
     fig_ui.update_yaxes(title='Ulcer Index',
                         visible=True, showticklabels=True)
     fig_ui.update_layout(height=400, showlegend=False)
-    
+    fig_ui.update_layout(xaxis_rangeslider_visible=False)
     l_ui = df['volatility_ui'].iloc[-1]
     return l_ui, fig_ui
 
