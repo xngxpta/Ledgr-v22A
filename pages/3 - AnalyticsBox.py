@@ -2249,10 +2249,10 @@ st.write("  --------------  ")
             # st.subheader("Institutional Risk Profile")
 st.warning("More info and insights on the Pro version which can be Accessed for a day via the Link buttons as the one below, or in the sidebar.")
 st.link_button("Access Ledgr/Day!", url_stripe, type="primary",
-               disabled=False, width='content')
+               disabled=False, use_container_width=True)
 st.success("Become a Patron and support the project for a minimal monthly fee!")
 st.link_button("Become a Patron!", url_stripe_2, type="primary",
-               disabled=False, width='content')
+               disabled=False, use_container_width=True)
 st.write("  --------------  ")
 column1, column2, column3, column4, column5 = st.columns([1, 1, 1, 2, 1])
 with column1:
