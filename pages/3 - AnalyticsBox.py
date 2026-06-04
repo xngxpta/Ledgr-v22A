@@ -309,6 +309,53 @@ adx_last, fig_adx, fig_adx_sig = adx(df)
 
 @st.cache_resource
 def trix(df):
+# 3. Create a subplot figure (2 rows, 1 column)
+    fig_trix = make_subplots(
+        rows=2, 
+        cols=1, 
+        shared_xaxes=True, 
+        vertical_spacing=0.05, 
+        row_heights=[0.7, 0.3]  # Price chart gets 70% space, Oscillator gets 30%
+    )
+
+# 4. Add Candlestick chart to Row 1
+    fig_trix.add_trace(
+        go.Candlestick(
+            x=df.index,
+            open=df['Open'].squeeze(),
+            high=df['High'].squeeze(),
+            low=df['Low'].squeeze(),
+            close=df['Close'].squeeze(),
+            name="Price"
+        ),
+        row=1, col=1
+    )
+
+# 5. Add TRIX Oscillator line to Row 2
+    fig_trix.add_trace(
+        go.Scatter(
+            x=df.index, 
+            y=df['trend_trix'], 
+            mode='lines', 
+            line=dict(color='purple', width=2), 
+            name='RSI'
+        ),
+        row=2, col=1
+    )
+
+# 6. Add Overbought (70) and Oversold (30) reference lines to the Oscillator
+    fig_trix.add_hline(y=70, line_dash="dash", line_color="red", row=2, col=1)
+    fig_trix.add_hline(y=30, line_dash="dash", line_color="green", row=2, col=1)
+
+    # 7. Update layout and styling
+    fig_trix.update_layout(
+        title="Price & TRIX Oscillator",
+        yaxis_title="Price ($)",
+        yaxis2_title="TRIX",
+        xaxis_rangeslider_visible=False,  # Hide range slider to save space
+        height=600,
+        template="plotly_dark"  # Dark mode for cleaner financial charts
+    )
     df2 = df.iloc[12:]
     fig_trix = px.bar(df2, x=df2.index, y="trend_trix", color="trend_trix")
     fig_trix.update_layout(showlegend=False)
