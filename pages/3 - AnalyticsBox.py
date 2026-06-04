@@ -819,6 +819,7 @@ def ui(df):
     fig_ui.update_yaxes(title='Ulcer Index',
                         visible=True, showticklabels=True)
     fig_ui.update_layout(height=400, showlegend=False)
+    
     l_ui = df['volatility_ui'].iloc[-1]
     return l_ui, fig_ui
 
@@ -1679,7 +1680,8 @@ with st.container(border=True):
     choix3 = st.selectbox("Select any option here!!",
                           volatlist, label_visibility="hidden")
     if choix3 == "Average True Range (ATR) & Ulcer Index (UI)":
-        att12, at12, att13, att14, att15 = st.columns([2, 1, 1, 1, 3])
+        att12, at12, att13, att14 = st.columns([2, 1, 1, 1])
+        
         with att12:
             st.subheader("Average True Range")
         with att13:
@@ -1693,23 +1695,25 @@ with st.container(border=True):
                 st.metric("Volatility - ATR", "Low")
             else:
                 st.metric("Volatility - ATR", "High")
-            # else: st.write("Volatility", "Unchartable")
-        with att15:
-            st.subheader("Ulcer Index")
-            if l_ui < 2.5:
-                st.metric("Ulcer Signal", "Nearing Prev High!!")
-            elif l_ui > 5:
-                st.metric("Ulcer Signal", "Far from Prev High")
-            else:
-                st.metric("Ulcer Signal", "Median Levels")
         st.info(""" Average True Range or ATR is used to measure market
 volatility. It's calculated by averaging the true range, which considers the
 price movement between the day's high and low, and the previous day's closing
 price, over a specified period, typically 14 days.""")
         st.plotly_chart(fig_atr, use_container_width=True)
+
+        
+        st.subheader("Ulcer Index")
+        if l_ui < 2.5:
+            st.metric("Ulcer Signal", "Nearing Prev High!!")
+        elif l_ui > 5:
+            st.metric("Ulcer Signal", "Far from Prev High")
+        else:
+            st.metric("Ulcer Signal", "Median Levels")
         st.info("""The Ulcer Index is a popular technical indicator that lets
 one know the maximum downside risk before entering a trade.""")
         st.plotly_chart(fig_ui, use_container_width=True)
+        
+        
     elif choix3 == "Bollinger Bands (BB)":
         df_bb1, df_bb2, df_bb_ind, l_bbp, fig_bb, fig_bb2, l_bbhi, l_bbli, l_bbw = bb(
             df)
