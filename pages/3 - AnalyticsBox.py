@@ -89,13 +89,13 @@ stock2 = stock + ".NS"
 
 @st.cache_resource
 def getdata(stock2):
-stock2 = yf.Ticker(stock2)
-df2 = stock2.history(period="5y")
-# df0.to_csv(f"{direc}/pages/appdata/OHLC/{stock2}.csv")
-di = df2.index
-# df2 = pd.read_csv(f"{direc}/pages/appdata/OHLC/{stock2}.csv", header=[0])
-# df2 = df2.set_index(['Date'])
-df2 = df2.drop(['Dividends', 'Stock Splits'], axis=1)
+    stock2 = yf.Ticker(stock2)
+    df2 = stock2.history(period="5y")
+    # df0.to_csv(f"{direc}/pages/appdata/OHLC/{stock2}.csv")
+    di = df2.index
+    # df2 = pd.read_csv(f"{direc}/pages/appdata/OHLC/{stock2}.csv", header=[0])
+    # df2 = df2.set_index(['Date'])
+    df2 = df2.drop(['Dividends', 'Stock Splits'], axis=1)
 return di, df2
 
 
@@ -151,8 +151,7 @@ volatlist = pd.Series(["Average True Range (ATR) & Ulcer Index (UI)",
 volulist = pd.Series(["Money Flow Index (MFI)", "Accumulation/Distribution Index (ADI)", "On-Balance Volume (OBV)", "Chaikin Money Flow (CMF)",
                  "Force Index (FI)", "Ease of Movement (EoM, EMV)", "Volume-price Trend (VPT)", "Negative Volume Index (NVI)", "Volume Adjusted Average Price (VWAP)"])
 
-figOHLC = make_subplots(rows=2, cols=1, shared_xaxes=True,
-                    row_width=[0.3, 0.7])
+figOHLC = make_subplots(rows=2, cols=1, shared_xaxes=True, row_width=[0.3, 0.7])
 figOHLC.add_trace(go.Ohlc(x=df.index, open=df["Open"], high=df["High"],
                   low=df["Low"], close=df["Close"]), row=1, col=1)
 figOHLC.update_xaxes(visible=True, showticklabels=True)
@@ -208,9 +207,6 @@ with su1:
         st.write("**Sector** - ", sector)
     except Exception:
         st.write('Data Unreported')
-#        fullTimeEmployees = dfi.at['fullTimeEmployees', 'Details']
-#        st.write("**Employees** - ", fullTimeEmployees)
-
 with su2:
     st.subheader("Trading Ranges")
 
@@ -247,8 +243,6 @@ with su3:
     try:
         avg50 = dfi.at['fiftyDayAverage', 'Details']
         st.write('50 Day Avg. - ', avg50, border=True)
-        # twoHundredDayAverage = dfi.at['twoHundredDayAverage', 'Details']
-        # st.write('200D Avg - ', twoHundredDayAverage)
     except Exception:
         st.write('Data Unreported')
 st.write("  --------------  ")
@@ -289,9 +283,9 @@ with st.expander("Click here for Raw and Calculated Data"):
 
 @st.cache_resource
 def sma(df):
-df_sma = df.filter(["Close", "trend_sma_fast", "trend_sma_slow"], axis=1)
-lsma_fast = df_sma["trend_sma_fast"].iloc[-1].round(2)
-lsma_slow = df_sma["trend_sma_slow"].iloc[-1].round(2)
+    df_sma = df.filter(["Close", "trend_sma_fast", "trend_sma_slow"], axis=1)
+    lsma_fast = df_sma["trend_sma_fast"].iloc[-1].round(2)
+    lsma_slow = df_sma["trend_sma_slow"].iloc[-1].round(2)
 
 return df_sma, lsma_fast, lsma_slow
 
@@ -534,11 +528,11 @@ l_uo, fig_uo = uo(df)
 
 @st.cache_resource
 def wr(df):
-fig_wr = px.bar(df["momentum_wr"])
-l_wr = df['momentum_wr'].iloc[-1]
-fig_wr.update_layout(showlegend=False)
-fig_wr.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_wr.update_yaxes(title='Williams %R', visible=True, showticklabels=True)
+    fig_wr = px.bar(df["momentum_wr"])
+    l_wr = df['momentum_wr'].iloc[-1]
+    fig_wr.update_layout(showlegend=False)
+    fig_wr.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_wr.update_yaxes(title='Williams %R', visible=True, showticklabels=True)
 return l_wr, fig_wr
 
 
@@ -731,7 +725,7 @@ fig_ppo, fig_ppo_signal = ppo(df)
 
 
 @st.cache_resource
-    def pvo(df):
+def pvo(df):
     fig_pvo = make_subplots(rows=2, cols=1, shared_xaxes=True,
                             vertical_spacing=0.02, row_width=[0.5, 0.5])
     fig_pvo.add_trace(go.Candlestick(x=df.index,
@@ -1376,56 +1370,56 @@ else:
 st.write("  --------------  ")
 
 with st.container(border=True):
-st.subheader("*Momentum Indicators*")
-ch1, ch2, ch3, ch4 = st.columns(4)
-with ch1:
-    st.metric("Relative Strength Index", l_rsi.round(2))
-    st.metric("Stochastic RSI", l_srsi.round(2))
-with ch2:
-    st.metric("Ultimate Oscillator Index", l_uo.round(2))
-    st.metric("Stochastic Oscillator Index", l_stoch.round(2))
-with ch3:
-    st.metric("WIlliams %R", l_wr.round(2))
-    st.metric("Kaufmann's MAverage", l_kama.round(2))
-with ch4:
-    st.metric("True Strength Index", l_tsi.round(2))
-    st.metric("Rate of Change", l_roc.round(2))
-st.info(""" Assess the speed, momentum and direction of price changes for an
-    asset, gauge the asset's inertia.""")
+    st.subheader("*Momentum Indicators*")
+    ch1, ch2, ch3, ch4 = st.columns(4)
+    with ch1:
+        st.metric("Relative Strength Index", l_rsi.round(2))
+        st.metric("Stochastic RSI", l_srsi.round(2))
+    with ch2:
+        st.metric("Ultimate Oscillator Index", l_uo.round(2))
+        st.metric("Stochastic Oscillator Index", l_stoch.round(2))
+    with ch3:
+        st.metric("WIlliams %R", l_wr.round(2))
+        st.metric("Kaufmann's MAverage", l_kama.round(2))
+    with ch4:
+        st.metric("True Strength Index", l_tsi.round(2))
+        st.metric("Rate of Change", l_roc.round(2))
+    st.info(""" Assess the speed, momentum and direction of price changes for an
+        asset, gauge the asset's inertia.""")
 
 with st.container(border=True):
-choix2 = st.selectbox("Select any option here!!",
-                      momenlist, label_visibility="hidden")
-if choix2 == "Relative Strength Index (RSI)":
-    fig_rsi, l_rsi, l_rsi21, fig_rsi_b = rsif(df)
-    del_rsi = l_rsi - 50
-    r1, r2, r3, r4 = st.columns(4)
-    with r1:
-        st.subheader("Relative Strength Index")
-    with r2:
-        st.metric("Relative Strength", l_rsi.round(2),
-                  delta=del_rsi.round(2), delta_color="inverse")
-    with r3:
-        if l_rsi21 > 70:
-            st.metric("RSI Indicator", "Overbought")
-        elif l_rsi21 < 30:
-            st.metric("RSI Indicator", "Oversold")
-        else:
-            st.metric("RSI Indicator", "In Trading")
-    with r4:
-        if l_rsi21 > l_rsi:
-            st.metric("RSI Signal", "Release")
-        elif l_rsi21 < l_rsi:
-            st.metric("RSI Signal", "Purchase")
-        else:
-            st.warning("Inflection ongoing!!")
-    st.info("""The RSI Indicator enables one to measure the rate of change
-in a stock's price over time, accounting in volume or in a momentum metric,
-in other words""")
-    st.plotly_chart(fig_rsi, use_container_width=True)
-    st.info("""Investigate whether an asset has been Overbought or Oversold,
-and to what level. An RSI of above 70 indicates an Overbought Condition, and one below 30 indicates that it is Oversold. The Zero line seperates the Buy and Sell regions.""")
-    st.plotly_chart(fig_rsi_b, use_container_width=True)
+    choix2 = st.selectbox("Select any option here!!",
+                          momenlist, label_visibility="hidden")
+    if choix2 == "Relative Strength Index (RSI)":
+        fig_rsi, l_rsi, l_rsi21, fig_rsi_b = rsif(df)
+        del_rsi = l_rsi - 50
+        r1, r2, r3, r4 = st.columns(4)
+        with r1:
+            st.subheader("Relative Strength Index")
+        with r2:
+            st.metric("Relative Strength", l_rsi.round(2),
+                      delta=del_rsi.round(2), delta_color="inverse")
+        with r3:
+            if l_rsi21 > 70:
+                st.metric("RSI Indicator", "Overbought")
+            elif l_rsi21 < 30:
+                st.metric("RSI Indicator", "Oversold")
+            else:
+                st.metric("RSI Indicator", "In Trading")
+        with r4:
+            if l_rsi21 > l_rsi:
+                st.metric("RSI Signal", "Release")
+            elif l_rsi21 < l_rsi:
+                st.metric("RSI Signal", "Purchase")
+            else:
+                st.warning("Inflection ongoing!!")
+        st.info("""The RSI Indicator enables one to measure the rate of change
+    in a stock's price over time, accounting in volume or in a momentum metric,
+    in other words""")
+        st.plotly_chart(fig_rsi, use_container_width=True)
+        st.info("""Investigate whether an asset has been Overbought or Oversold,
+    and to what level. An RSI of above 70 indicates an Overbought Condition, and one below 30 indicates that it is Oversold. The Zero line seperates the Buy and Sell regions.""")
+        st.plotly_chart(fig_rsi_b, use_container_width=True)
 elif choix2 == "Stochastic RSI (SRSI)":
     l_srsi, fig_rsik, l_srsi_k, l_srsi_d, fig_rsik2 = srsi(df)
     c46, c47, c48, c49 = st.columns(4)
@@ -1646,80 +1640,80 @@ measure the intensity or magnitude of price fluctuations in financial
 instruments.""")
 
 with st.container(border=True):
-choix3 = st.selectbox("Select any option here!!",
-                      volatlist, label_visibility="hidden")
-if choix3 == "Average True Range (ATR) & Ulcer Index (UI)":
-    att12, at12, att13, att14, att15 = st.columns([2, 1, 1, 1, 3])
-    with att12:
-        st.subheader("Average True Range")
-        st.subheader("Ulcer Index")
-    with att13:
-        st.metric("ATR [INR]", l_atr.round(2))
-    with at12:
-        st.metric("Ulcer Index", l_ui.round(2))
-    with att14:
-        if l_atr > 40:
-            st.metric("Volatility - ATR", "Medium")
-        if l_atr < 21:
-            st.metric("Volatility - ATR", "Low")
-        else:
-            st.metric("Volatility - ATR", "High")
-        # else: st.write("Volatility", "Unchartable")
-    with att15:
-        if l_ui < 2.5:
-            st.metric("Ulcer Signal", "Nearing Prev High!!")
-        elif l_ui > 5:
-            st.metric("Ulcer Signal", "Far from Prev High")
-        else:
-            st.metric("Ulcer Signal", "Median Levels")
-    st.info(""" Average True Range or ATR is used to measure market
-volatility. It's calculated by averaging the true range, which considers the
-price movement between the day's high and low, and the previous day's closing
-price, over a specified period, typically 14 days.""")
-    st.plotly_chart(fig_atr, use_container_width=True)
-    st.info("""The Ulcer Index is a popular technical indicator that lets
-one know the maximum downside risk before entering a trade.""")
-    st.plotly_chart(fig_ui, use_container_width=True)
-elif choix3 == "Bollinger Bands (BB)":
-    df_bb1, df_bb2, df_bb_ind, l_bbp, fig_bb, fig_bb2, l_bbhi, l_bbli, l_bbw = bb(
-        df)
-    bx2, bx3, bx4, bx5 = st.columns([2, 1, 1, 2])
-    with bx2:
-        st.subheader("Bollinger Bands")
-    with bx3:
-        if l_bbhi == 1:
-            st.metric("BB Hi Signal", "Nearing Highs>Sell!")
-        else:
-            st.metric("BB Hi Signal", "Stable")
-    with bx4:
-        if l_bbli == 1:
-            st.metric("BB Lo Signal", "Nearing Lows>Acquire!")
-        else:
-            st.metric('BB Lo Signal', "None")
-    with bx5:
-        if l_bbp > 0.7:
-            st.metric("Percentile Signal", "Around the Highs")
-        elif l_bbp < 0.3:
-            st.metric("Percentile Signal", "Around the Lows")
-        else:
-            st.metric("Percentile Signal", "Around the Mids")
-    st.info(""" Bollinger's Bands plot measures market volatility
-            and potential price reversals.
-            They consist of a moving average (middle band), an upper band
-            (moving average + a multiple of standard deviation),
-            and a lower band (moving average - a multiple of
-                              standard deviation), typically 2 std. dev""")
-    st.plotly_chart(fig_bb, use_container_width=True)
-    st.info(""" Bollinger's Bands Percentile Indicator plots measures
-            the relative width of the Bollinger Bands compared to their
-            historical range. It helps traders gauge the current volatility
-            level and identify potential trend reversals or
-            continuation signals.""")
-    st.plotly_chart(fig_bb2, use_container_width=True)
-    st.info("""The Bollinger Band Squeeze identifies periods of low
-            volatility (band contraction) that often precede significant
-            price movements, making it an effective tool for
-            anticipating breakouts""")
+    choix3 = st.selectbox("Select any option here!!",
+                          volatlist, label_visibility="hidden")
+    if choix3 == "Average True Range (ATR) & Ulcer Index (UI)":
+        att12, at12, att13, att14, att15 = st.columns([2, 1, 1, 1, 3])
+        with att12:
+            st.subheader("Average True Range")
+            st.subheader("Ulcer Index")
+        with att13:
+            st.metric("ATR [INR]", l_atr.round(2))
+        with at12:
+            st.metric("Ulcer Index", l_ui.round(2))
+        with att14:
+            if l_atr > 40:
+                st.metric("Volatility - ATR", "Medium")
+            if l_atr < 21:
+                st.metric("Volatility - ATR", "Low")
+            else:
+                st.metric("Volatility - ATR", "High")
+            # else: st.write("Volatility", "Unchartable")
+        with att15:
+            if l_ui < 2.5:
+                st.metric("Ulcer Signal", "Nearing Prev High!!")
+            elif l_ui > 5:
+                st.metric("Ulcer Signal", "Far from Prev High")
+            else:
+                st.metric("Ulcer Signal", "Median Levels")
+        st.info(""" Average True Range or ATR is used to measure market
+    volatility. It's calculated by averaging the true range, which considers the
+    price movement between the day's high and low, and the previous day's closing
+    price, over a specified period, typically 14 days.""")
+        st.plotly_chart(fig_atr, use_container_width=True)
+        st.info("""The Ulcer Index is a popular technical indicator that lets
+    one know the maximum downside risk before entering a trade.""")
+        st.plotly_chart(fig_ui, use_container_width=True)
+    elif choix3 == "Bollinger Bands (BB)":
+        df_bb1, df_bb2, df_bb_ind, l_bbp, fig_bb, fig_bb2, l_bbhi, l_bbli, l_bbw = bb(
+            df)
+        bx2, bx3, bx4, bx5 = st.columns([2, 1, 1, 2])
+        with bx2:
+            st.subheader("Bollinger Bands")
+        with bx3:
+            if l_bbhi == 1:
+                st.metric("BB Hi Signal", "Nearing Highs>Sell!")
+            else:
+                st.metric("BB Hi Signal", "Stable")
+        with bx4:
+            if l_bbli == 1:
+                st.metric("BB Lo Signal", "Nearing Lows>Acquire!")
+            else:
+                st.metric('BB Lo Signal', "None")
+        with bx5:
+            if l_bbp > 0.7:
+                st.metric("Percentile Signal", "Around the Highs")
+            elif l_bbp < 0.3:
+                st.metric("Percentile Signal", "Around the Lows")
+            else:
+                st.metric("Percentile Signal", "Around the Mids")
+        st.info(""" Bollinger's Bands plot measures market volatility
+                and potential price reversals.
+                They consist of a moving average (middle band), an upper band
+                (moving average + a multiple of standard deviation),
+                and a lower band (moving average - a multiple of
+                                  standard deviation), typically 2 std. dev""")
+        st.plotly_chart(fig_bb, use_container_width=True)
+        st.info(""" Bollinger's Bands Percentile Indicator plots measures
+                the relative width of the Bollinger Bands compared to their
+                historical range. It helps traders gauge the current volatility
+                level and identify potential trend reversals or
+                continuation signals.""")
+        st.plotly_chart(fig_bb2, use_container_width=True)
+        st.info("""The Bollinger Band Squeeze identifies periods of low
+                volatility (band contraction) that often precede significant
+                price movements, making it an effective tool for
+                anticipating breakouts""")
 elif choix3 == "Keltner Channel (KC)":
     df_k, df_k_ind, fig_k, fig_k2, fig_k_ind, fig_k3, l_kcp, l_kcw, l_kchi, l_kcli = kc(
         df)
@@ -1792,97 +1786,97 @@ percentile ranks.""")
 # ----------------------###---------------------#####
 st.write("  --------------  ")
 with st.container(border=True):
-l_dr, fig_dr, l_dlr, delta_r, fig_dlr = dr(df)
-l_cr, fig_cr = cr(df)
-cr1, cr2, cr3, cr4, cr5 = st.columns([2, 1, 1, 1, 1])
-with cr1:
-    st.header("*Returns Indicators*", divider='rainbow')
-with cr2:
-    st.metric("Cumulative Returns", l_cr.round(2))
-with cr3:
-    # st.metric("Direct Returns", l_dr.round(2))
-    st.metric("Log Direct Returns", l_dlr.round(2))
-with cr4:
-    st.metric("Spread against DR", delta_r.round(2))
-with cr5:
-    if delta_r > 0:
-        sign_r = "Positive"
-    elif delta_r < 0:
-        sign_r == "Negative"
-    else:
-        sign_r == "Inflection!"
-    st.metric("Signal", sign_r)
-st.info("""A returns percentage indicator" refers to a measure that
-expresses the gain or loss of an investment or project over a period as a
-percentage of the initial investment.""")
-st.plotly_chart(fig_dr, use_container_width=True)
-st.plotly_chart(fig_dlr, use_container_width=True)
-st.info("""The Returns Index is plotted over the Logarithmic Returns. If
-the Returns are below the Log Returns, then the asset or security is
-Profitable. Conversely, If it is above the logarithmic curve, it records
-positive Returns on investment""")
+    l_dr, fig_dr, l_dlr, delta_r, fig_dlr = dr(df)
+    l_cr, fig_cr = cr(df)
+    cr1, cr2, cr3, cr4, cr5 = st.columns([2, 1, 1, 1, 1])
+    with cr1:
+        st.header("*Returns Indicators*", divider='rainbow')
+    with cr2:
+        st.metric("Cumulative Returns", l_cr.round(2))
+    with cr3:
+        # st.metric("Direct Returns", l_dr.round(2))
+        st.metric("Log Direct Returns", l_dlr.round(2))
+    with cr4:
+        st.metric("Spread against DR", delta_r.round(2))
+    with cr5:
+        if delta_r > 0:
+            sign_r = "Positive"
+        elif delta_r < 0:
+            sign_r == "Negative"
+        else:
+            sign_r == "Inflection!"
+        st.metric("Signal", sign_r)
+    st.info("""A returns percentage indicator" refers to a measure that
+    expresses the gain or loss of an investment or project over a period as a
+    percentage of the initial investment.""")
+    st.plotly_chart(fig_dr, use_container_width=True)
+    st.plotly_chart(fig_dlr, use_container_width=True)
+    st.info("""The Returns Index is plotted over the Logarithmic Returns. If
+    the Returns are below the Log Returns, then the asset or security is
+    Profitable. Conversely, If it is above the logarithmic curve, it records
+    positive Returns on investment""")
 st.write("  --------------  ")
 with st.container(border=True):
-cvv1, cvv2, cvv3, cvv4, cvv5 = st.columns(5)
-with cvv1:
-    st.header("*Volume Indicators*", divider='rainbow')
-with cvv2:
-    st.metric("Money Flow Index", l_mfi.round(2))
-    st.metric("On Balance Volume [x100k]", l_obv.round(2))
-
-with cvv3:
-    st.metric("ADI [x100k]", l_adi.round(2))
-    st.metric("Chaikin's Money Flow Index", l_cmf.round(2))
-
-with cvv4:
-    lfi = l_fi/10000
-    lvpt = l_vp/10000
-    st.metric("Force Index [x10k]", lfi.round(2))
-    st.metric("Volume Price Trend [x10k]", lvpt.round(2))
-
-with cvv5:
-    st.metric("Ease of Movement", l_em.round(2))
-    st.metric("Negative Volume Index", l_nvi.round(2))
+    cvv1, cvv2, cvv3, cvv4, cvv5 = st.columns(5)
+    with cvv1:
+        st.header("*Volume Indicators*", divider='rainbow')
+    with cvv2:
+        st.metric("Money Flow Index", l_mfi.round(2))
+        st.metric("On Balance Volume [x100k]", l_obv.round(2))
+    
+    with cvv3:
+        st.metric("ADI [x100k]", l_adi.round(2))
+        st.metric("Chaikin's Money Flow Index", l_cmf.round(2))
+    
+    with cvv4:
+        lfi = l_fi/10000
+        lvpt = l_vp/10000
+        st.metric("Force Index [x10k]", lfi.round(2))
+        st.metric("Volume Price Trend [x10k]", lvpt.round(2))
+    
+    with cvv5:
+        st.metric("Ease of Movement", l_em.round(2))
+        st.metric("Negative Volume Index", l_nvi.round(2))
 
 with st.container(border=True):
-choix5 = st.selectbox("Select any option here!!",
-                      volulist, label_visibility="hidden")
-if choix5 == "Money Flow Index (MFI)":
-    l_mfi, fig_mfi = mfi(df)
-    mfi1, mfi2, mfi3 = st.columns([3, 1, 1])
-    with mfi1:
-        st.subheader("Money Flow Index")
-    with mfi2:
-        st.metric("Money Flow", l_mfi.round(2))
-    with mfi3:
-        if l_mfi < 10:
-            st.metric("Trading Zone", "Long")
-        else:
-            st.metric("Trading Zone", "Short")
-    st.info("""The MFI oscillates between 0 - 100.
-            It helps traders identify overbought and oversold conditions,
-            as well as detect potential trend reversals""")
-    st.markdown("""MFI is  a volume-weighted version of the
-                Relative Strength Index (RSI).""")
-    st.plotly_chart(fig_mfi, use_container_width=True)
-    st.info(""" By incorporating volume, the MFI provides a more
-       comprehensive picture of market sentiment than price-only
-      indicators""")
-elif choix5 == "Accumulation/Distribution Index (ADI)":
-    l_adi, fig_adi = adi(df)
-    ad1, ad2 = st.columns([3, 1])
-    with ad1:
-        st.subheader("Accumulation/Distribution Index")
-        st.markdown(
-            """
-            1. Money Flow Multiplier =
-                [(Close-Low) - (High-Close)]/(High-Low)
-            2. Money Flow Volume = Money Flow Multiplier x Volume
-            3. ADL = Previous ADL + Current Period's Money Flow Volume
-            """
-        )
-    with ad2:
-        st.metric("Calculated", l_adi.round(2))
+    choix5 = st.selectbox("Select any option here!!",
+                          volulist, label_visibility="hidden")
+    if choix5 == "Money Flow Index (MFI)":
+        l_mfi, fig_mfi = mfi(df)
+        mfi1, mfi2, mfi3 = st.columns([3, 1, 1])
+        with mfi1:
+            st.subheader("Money Flow Index")
+        with mfi2:
+            st.metric("Money Flow", l_mfi.round(2))
+        with mfi3:
+            if l_mfi < 10:
+                st.metric("Trading Zone", "Long")
+            else:
+                st.metric("Trading Zone", "Short")
+        st.info("""The MFI oscillates between 0 - 100.
+                It helps traders identify overbought and oversold conditions,
+                as well as detect potential trend reversals""")
+        st.markdown("""MFI is  a volume-weighted version of the
+                    Relative Strength Index (RSI).""")
+        st.plotly_chart(fig_mfi, use_container_width=True)
+        st.info(""" By incorporating volume, the MFI provides a more
+           comprehensive picture of market sentiment than price-only
+          indicators""")
+    elif choix5 == "Accumulation/Distribution Index (ADI)":
+        l_adi, fig_adi = adi(df)
+        ad1, ad2 = st.columns([3, 1])
+        with ad1:
+            st.subheader("Accumulation/Distribution Index")
+            st.markdown(
+                """
+                1. Money Flow Multiplier =
+                    [(Close-Low) - (High-Close)]/(High-Low)
+                2. Money Flow Volume = Money Flow Multiplier x Volume
+                3. ADL = Previous ADL + Current Period's Money Flow Volume
+                """
+            )
+        with ad2:
+            st.metric("Calculated", l_adi.round(2))
     st.info("""The Accumulation/Distribution (A/D) indicator is a
             volume-based technical analysis tool that helps identify
             buying and selling pressure, and assess the strength
@@ -1900,91 +1894,91 @@ elif choix5 == "Accumulation/Distribution Index (ADI)":
             period's volume to come up with a Money Flow Volume
             A running total of the Money Flow Volume forms the
             Accumulation Distribution Line.""")
-    ad3, ad4 = st.columns(2)
-    with ad3:
-        st.markdown("""A high positive multiplier combined with high volume
-        shows strong buying pressure that pushes the indicator higher.
-        Conversely, a low negative number combined with high volume
-        reflects strong selling pressure that pushes the indicator
-        lower.""")
-    with ad4:
-        st.markdown("""An uptrend in prices with a downtrend in the AD Line
-        suggests underlying selling pressure (distribution) that could
-        foreshadow a bearish reversal on the price chart. A downtrend in
-        prices with an uptrend in the Accumulation Distribution Line
-        indicates underlying buying pressure (accumulation) that could
-foreshadow a bullish price reversal.""")
-elif choix5 == "On-Balance Volume (OBV)":
-    l_obv, fig_obv = obvf(df)
-    ob1, ob2 = st.columns([3, 1])
-    with ob1:
-        st.subheader("On-Balance Volume (OBV)")
-        st.write("On Balance Volume provides a cumulative measure of an asset's volume, adding to it when the price goes up and subtracting from it when the price goes down")
-    with ob2:
-        st.metric("On balance volume [x100000]", l_obv.round(2))
-    st.plotly_chart(fig_obv, use_container_width=True)
-    st.info("When both price and OBV are making higher peaks and higher troughs, the upward trend is likely to continue, and consequently, When both price and OBV are making lower peaks and lower troughs, the downward trend is likely to continue.")
-    st.info("During a trading range, if the OBV is rising, accumulation may be taking place—a warning of an upward breakout, and in case it is falling, there are chances of a downward breakout.")
-
-elif choix5 == "Chaikin Money Flow (CMF)":
-    l_cmf, fig_cmf = cmf(df)
-    cm1, cm2, cm3 = st.columns([2, 1, 1])
-    with cm1:
-        st.subheader("Chaikin Money Flow Index")
-        st.write("Chaikin Money Flow values between 0.05 – 0.25 indicate buying pressures from the bulls and values between -0.05 to -0.25 indicate selling pressures from the bears.")
-    with cm2:
-        st.metric("CMFI", l_cmf.round(2))
-    with cm3:
-        if l_cmf > 0.04:
-            st.metric("Market Pressure", "Purchase!!")
-        elif l_cmf < -0.04:
-            st.metric("Market Pressure", "Liquidate!!")
-        else:
-            st.warning("In Active Trading Domain!!")
-    st.plotly_chart(fig_cmf, use_container_width=True)
-    st.info("The Chaikin Money Flow (CMF) is a volume-weighted average of accumulation and distribution over a specified period. The standard CMF period is 21 days.")
-    st.info("The principle behind the Chaikin Money Flow is the nearer the closing price is to the high, the more accumulation has taken place. Conversely, the nearer the closing price is to the low, the more distribution has taken place. If the price action consistently closes above the bar's midpoint on increasing volume, the Chaikin Money Flow will be positive. Conversely, if the price action consistently closes below the bar's midpoint on increasing volume, the Chaikin Money Flow will be a negative value.")
-elif choix5 == "Force Index (FI)":
-                l_fi, fig_fi = fi(df)
-                l_fi2 = l_fi/1000000
-                fo1, fo2 = st.columns([3, 1])
-                with fo1:
-                    st.subheader("Force Index")
-                with fo2:
-                    st.metric("Force Index - Millions", l_fi2.round(2))
-                st.info("The Force Index is calculated by subtracting yesterday's close from today's close and multiplying the result by today's volume. If closing prices are higher today than yesterday, the force is positive. If closing prices are lower than yesterday's, the force is negative.")
-                st.plotly_chart(fig_fi)
-            elif choix5 == "Ease of Movement (EoM, EMV)":
-                fig_em, fig_sma_em, l_em, l_sma_em, delta_em = em(df)
-                sm3, sm4, sm5, sm6 = st.columns(4)
-                with sm3:
-                    st.subheader("Ease of Movement Index")
-                with sm4:
-                    st.metric("Ease-of-Movement Index", l_em.round(2))
-                with sm5:
-                    st.metric("EOM SMA", l_sma_em.round(2))
-                with sm6:
-                    if delta_em == 0:
-                        st.metric("EM Signal", "Reversal Incoming!!")
-                    else:
-                        st.metric("EM Signal", "No Reversals yet!")
-                st.info("The Ease of Movement EoM or EMV Indicator measures the relationship between price change and volume change. It helps traders assess the strength of price movements, particularly whether a market is trending or consolidating. ")
-                st.plotly_chart(fig_em, use_container_width=True)
-                st.info("A rising EOM suggests that prices are moving upward with relative ease, potentially indicating a strong upward trend, conversely, A falling EOM may indicate that prices are moving downward more easily, potentially signaling a weakening trend.A cross above zero suggests that prices are moving upward with more ease, while a cross below zero suggests downward movement with more ease ")
-            elif choix5 == "Volume-price Trend (VPT)":
-                l_vp, fig_vpt = vpt(df)
-                vp1, vp2 = st.columns([3, 1])
-                with vp1:
-                    st.subheader("Volume-price Trend")
-                    st.write(
-                        '''Determine the balance between an assets
-                        demand and supply.''')
-        
-                with vp2:
-                    st.metric("VPTI", l_vp.round(2))
-                st.plotly_chart(fig_vpt, use_container_width=True)
-                st.info("A rising VPT with increasing volume suggests a strong bullish trend, and a falling VPT with decreasing volume suggests a strong bearish trend")
-                st.info("In congruence, A rising VPT with decreasing volume might indicate a weakening trend, whereas, a falling VPT with increasing volume might indicate a weakening trend in reverse, thus enabling one to estimate Divergences between the price and VPT can signal potential trend reversals")
+        ad3, ad4 = st.columns(2)
+        with ad3:
+            st.markdown("""A high positive multiplier combined with high volume
+            shows strong buying pressure that pushes the indicator higher.
+            Conversely, a low negative number combined with high volume
+            reflects strong selling pressure that pushes the indicator
+            lower.""")
+        with ad4:
+            st.markdown("""An uptrend in prices with a downtrend in the AD Line
+            suggests underlying selling pressure (distribution) that could
+            foreshadow a bearish reversal on the price chart. A downtrend in
+            prices with an uptrend in the Accumulation Distribution Line
+            indicates underlying buying pressure (accumulation) that could
+    foreshadow a bullish price reversal.""")
+    elif choix5 == "On-Balance Volume (OBV)":
+        l_obv, fig_obv = obvf(df)
+        ob1, ob2 = st.columns([3, 1])
+        with ob1:
+            st.subheader("On-Balance Volume (OBV)")
+            st.write("On Balance Volume provides a cumulative measure of an asset's volume, adding to it when the price goes up and subtracting from it when the price goes down")
+        with ob2:
+            st.metric("On balance volume [x100000]", l_obv.round(2))
+        st.plotly_chart(fig_obv, use_container_width=True)
+        st.info("When both price and OBV are making higher peaks and higher troughs, the upward trend is likely to continue, and consequently, When both price and OBV are making lower peaks and lower troughs, the downward trend is likely to continue.")
+        st.info("During a trading range, if the OBV is rising, accumulation may be taking place—a warning of an upward breakout, and in case it is falling, there are chances of a downward breakout.")
+    
+    elif choix5 == "Chaikin Money Flow (CMF)":
+        l_cmf, fig_cmf = cmf(df)
+        cm1, cm2, cm3 = st.columns([2, 1, 1])
+        with cm1:
+            st.subheader("Chaikin Money Flow Index")
+            st.write("Chaikin Money Flow values between 0.05 – 0.25 indicate buying pressures from the bulls and values between -0.05 to -0.25 indicate selling pressures from the bears.")
+        with cm2:
+            st.metric("CMFI", l_cmf.round(2))
+        with cm3:
+            if l_cmf > 0.04:
+                st.metric("Market Pressure", "Purchase!!")
+            elif l_cmf < -0.04:
+                st.metric("Market Pressure", "Liquidate!!")
+            else:
+                st.warning("In Active Trading Domain!!")
+        st.plotly_chart(fig_cmf, use_container_width=True)
+        st.info("The Chaikin Money Flow (CMF) is a volume-weighted average of accumulation and distribution over a specified period. The standard CMF period is 21 days.")
+        st.info("The principle behind the Chaikin Money Flow is the nearer the closing price is to the high, the more accumulation has taken place. Conversely, the nearer the closing price is to the low, the more distribution has taken place. If the price action consistently closes above the bar's midpoint on increasing volume, the Chaikin Money Flow will be positive. Conversely, if the price action consistently closes below the bar's midpoint on increasing volume, the Chaikin Money Flow will be a negative value.")
+    elif choix5 == "Force Index (FI)":
+                    l_fi, fig_fi = fi(df)
+                    l_fi2 = l_fi/1000000
+                    fo1, fo2 = st.columns([3, 1])
+                    with fo1:
+                        st.subheader("Force Index")
+                    with fo2:
+                        st.metric("Force Index - Millions", l_fi2.round(2))
+                    st.info("The Force Index is calculated by subtracting yesterday's close from today's close and multiplying the result by today's volume. If closing prices are higher today than yesterday, the force is positive. If closing prices are lower than yesterday's, the force is negative.")
+                    st.plotly_chart(fig_fi)
+                elif choix5 == "Ease of Movement (EoM, EMV)":
+                    fig_em, fig_sma_em, l_em, l_sma_em, delta_em = em(df)
+                    sm3, sm4, sm5, sm6 = st.columns(4)
+                    with sm3:
+                        st.subheader("Ease of Movement Index")
+                    with sm4:
+                        st.metric("Ease-of-Movement Index", l_em.round(2))
+                    with sm5:
+                        st.metric("EOM SMA", l_sma_em.round(2))
+                    with sm6:
+                        if delta_em == 0:
+                            st.metric("EM Signal", "Reversal Incoming!!")
+                        else:
+                            st.metric("EM Signal", "No Reversals yet!")
+                    st.info("The Ease of Movement EoM or EMV Indicator measures the relationship between price change and volume change. It helps traders assess the strength of price movements, particularly whether a market is trending or consolidating. ")
+                    st.plotly_chart(fig_em, use_container_width=True)
+                    st.info("A rising EOM suggests that prices are moving upward with relative ease, potentially indicating a strong upward trend, conversely, A falling EOM may indicate that prices are moving downward more easily, potentially signaling a weakening trend.A cross above zero suggests that prices are moving upward with more ease, while a cross below zero suggests downward movement with more ease ")
+                elif choix5 == "Volume-price Trend (VPT)":
+                    l_vp, fig_vpt = vpt(df)
+                    vp1, vp2 = st.columns([3, 1])
+                    with vp1:
+                        st.subheader("Volume-price Trend")
+                        st.write(
+                            '''Determine the balance between an assets
+                            demand and supply.''')
+            
+                    with vp2:
+                        st.metric("VPTI", l_vp.round(2))
+                    st.plotly_chart(fig_vpt, use_container_width=True)
+                    st.info("A rising VPT with increasing volume suggests a strong bullish trend, and a falling VPT with decreasing volume suggests a strong bearish trend")
+                    st.info("In congruence, A rising VPT with decreasing volume might indicate a weakening trend, whereas, a falling VPT with increasing volume might indicate a weakening trend in reverse, thus enabling one to estimate Divergences between the price and VPT can signal potential trend reversals")
             elif choix5 == "Negative Volume Index (NVI)":
                 l_nvi, fig_nvi = nvi(df)
                 nv1, nv2 = st.columns([3, 1])
@@ -2064,17 +2058,14 @@ with st.container(border=True):
                                     'Risk Levels': [auditRisk, boardRisk,
                                                     shareHolderRightsRisk,
                                                     compensationRisk]})
-            figure_risk = px.bar(
-                df_risk["Risk Levels"], labels=df_risk['Risk Types'],
-                color=df_risk['Risk Types'])
+            figure_risk = px.bar(df_risk["Risk Levels"], labels=df_risk['Risk Types'],
+                                 color=df_risk['Risk Types'])
             figure_risk.update_layout(
                 height=300, title='Institutional Risk Map',  title_x=0.25,
                 showlegend=False)
 
             figure_risk.update_xaxes(showticklabels=True, visible=True)
             figure_risk.update_yaxes(showticklabels=True, visible=True)
-            #          st.write("Compensation Risk", compensationRisk)
-            #      st.write("Shareholders' Rights Risk", shareHolderRightsRisk)
             st.plotly_chart(figure_risk, use_container_width=True)
         except Exception:
             st.write("Data Unreported")
