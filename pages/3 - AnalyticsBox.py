@@ -29,14 +29,11 @@ from ta import add_all_ta_features
 # init_session()
 direc = os.getcwd()
 
-st.set_page_config(page_title='Ledgr | Analytics', layout="wide",
-                   initial_sidebar_state="expanded")
+st.set_page_config(page_title='Ledgr | Analytics', layout="wide", initial_sidebar_state="expanded")
 
 
 url_stripe = "https://book.stripe.com/9B6bJ3gWS87G97b80q0480f"
 url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
-st.sidebar.link_button("Try Ledgr Pro!", url_stripe, type="primary",
-                       disabled=False)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
                        disabled=False)
 pathtkr = f"{direc}/pages/appdata/tickerlist_y.csv"
@@ -110,36 +107,33 @@ def dta(df2):
 df = add_all_ta_features(df2,
                          open='Open', high='High', low='Low',
                          close='Close', volume='Volume')
-#    df. pd.DataFrame(df2)
 return df
 
 
 df = dta(df2)
+
 df_col = pd.DataFrame(df.columns)
 df.dropna()
-
-# df_col.to_csv("Analytics Columns DF List.csv")
-# st.write("DTA", df)
 
 
 @st.cache_resource
 def hi_lo(df):
-df_3H = df['High'].iloc[-3:]
-dh3 = df_3H.max()
-df_3L = df['Low'].iloc[-3:]
-dl3 = df_3L.min()
-df_14H = df['High'].iloc[-14:]
-dh14 = df_14H.max()
-df_14L = df['Low'].iloc[-14:]
-dl14 = df_14L.min()
-dh_52 = df['High'].iloc[-200:]
-dh52 = dh_52.max()
-dl_52 = df['Low'].iloc[-200:]
-dl52 = dl_52.min()
-dh_25 = df['High'].iloc[-100:]
-dh25 = dh_25.max()
-dl_25 = df['Low'].iloc[-100:]
-dl25 = dl_25.min()
+    df_3H = df['High'].iloc[-3:]
+    dh3 = df_3H.max()
+    df_3L = df['Low'].iloc[-3:]
+    dl3 = df_3L.min()
+    df_14H = df['High'].iloc[-14:]
+    dh14 = df_14H.max()
+    df_14L = df['Low'].iloc[-14:]
+    dl14 = df_14L.min()
+    dh_52 = df['High'].iloc[-200:]
+    dh52 = dh_52.max()
+    dl_52 = df['Low'].iloc[-200:]
+    dl52 = dl_52.min()
+    dh_25 = df['High'].iloc[-100:]
+    dh25 = dh_25.max()
+    dl_25 = df['Low'].iloc[-100:]
+    dl25 = dl_25.min()
 return dh14, dh3, df_14L, df_14H, df_3L, df_3H, dl3, dl14, dh_52, dh52, dl_52, dl52, dh_25, dh25, dl_25, dl25
 
 
@@ -160,21 +154,21 @@ volulist = pd.Series(["Money Flow Index (MFI)", "Accumulation/Distribution Index
 figOHLC = make_subplots(rows=2, cols=1, shared_xaxes=True,
                     row_width=[0.3, 0.7])
 figOHLC.add_trace(go.Ohlc(x=df.index, open=df["Open"], high=df["High"],
-                      low=df["Low"], close=df["Close"]), row=1, col=1)
+                  low=df["Low"], close=df["Close"]), row=1, col=1)
 figOHLC.update_xaxes(visible=True, showticklabels=True)
 figOHLC.add_trace(go.Bar(
-x=df.index, y=df['Volume'], name='Volume Traded', showlegend=False),
-row=2, col=1)
+    x=df.index, y=df['Volume'], name='Volume Traded', showlegend=False),
+    row=2, col=1)
 figOHLC.update_layout(xaxis_rangeslider_visible=False, showlegend=False)
 
 
 @st.cache_resource
 def firm_info(stock):
-msft = yf.Ticker(stock+".NS")
-stock_info = msft.info
-df_stock_info = pd.DataFrame(stock_info.items())
-df_stock_info = df_stock_info.set_index([0])
-df_stock_info.rename(columns={1: 'Details'}, inplace=True)
+    msft = yf.Ticker(stock+".NS")
+    stock_info = msft.info
+    df_stock_info = pd.DataFrame(stock_info.items())
+    df_stock_info = df_stock_info.set_index([0])
+    df_stock_info.rename(columns={1: 'Details'}, inplace=True)
 return df_stock_info
 
 
@@ -307,9 +301,9 @@ df_sma, lsma_fast, lsma_slow = sma(df)
 
 @st.cache_resource
 def ema(df):
-df_ema = df.filter(["Close", "trend_ema_fast", "trend_ema_slow"], axis=1)
-lema_fast = df_ema["trend_ema_fast"].iloc[-1]
-lema_slow = df_ema["trend_ema_slow"].iloc[-1]
+    df_ema = df.filter(["Close", "trend_ema_fast", "trend_ema_slow"], axis=1)
+    lema_fast = df_ema["trend_ema_fast"].iloc[-1]
+    lema_slow = df_ema["trend_ema_slow"].iloc[-1]
 return df_ema, lema_fast, lema_slow
 
 
@@ -318,21 +312,21 @@ df_ema, lema_fast, lema_slow = ema(df)
 
 @st.cache_resource
 def adx(df):
-df_adx = df.filter(["trend_adx"], axis=1)
-df_adx = df_adx.iloc[14:]
-adx_last = df_adx.iloc[-1].values
-df_adx_signal = df.filter(
-    ["trend_adx", "trend_adx_pos", "trend_adx_neg"], axis=1)
-df_adx_signal = df_adx_signal.iloc[14:]
-fig_adx = px.line(df_adx)
-fig_adx.update_layout(showlegend=False)
-fig_adx.update_xaxes(visible=True, showticklabels=True)
-fig_adx.update_yaxes(title='ADX', visible=True, showticklabels=True)
-fig_adx_sig = px.line(df_adx_signal)
-fig_adx_sig.update_xaxes(visible=True, showticklabels=True)
-fig_adx_sig.update_yaxes(
-    title='ADX Signal', visible=True, showticklabels=True)
-fig_adx_sig.update_layout(showlegend=False)
+    df_adx = df.filter(["trend_adx"], axis=1)
+    df_adx = df_adx.iloc[14:]
+    adx_last = df_adx.iloc[-1].values
+    df_adx_signal = df.filter(
+        ["trend_adx", "trend_adx_pos", "trend_adx_neg"], axis=1)
+    df_adx_signal = df_adx_signal.iloc[14:]
+    fig_adx = px.line(df_adx)
+    fig_adx.update_layout(showlegend=False)
+    fig_adx.update_xaxes(visible=True, showticklabels=True)
+    fig_adx.update_yaxes(title='ADX', visible=True, showticklabels=True)
+    fig_adx_sig = px.line(df_adx_signal)
+    fig_adx_sig.update_xaxes(visible=True, showticklabels=True)
+    fig_adx_sig.update_yaxes(
+        title='ADX Signal', visible=True, showticklabels=True)
+    fig_adx_sig.update_layout(showlegend=False)
 
 return adx_last, fig_adx, fig_adx_sig
 
@@ -342,16 +336,16 @@ adx_last, fig_adx, fig_adx_sig = adx(df)
 
 @st.cache_resource
 def trix(df):
-df2 = df.iloc[12:]
-fig_trix = px.bar(df2, x=df2.index, y="trend_trix", color="trend_trix")
-fig_trix.update_layout(showlegend=False)
-fig_trix.update_xaxes(visible=True, showticklabels=True)
-fig_trix.update_yaxes(title='TRIX', visible=True, showticklabels=True)
-l_trix = df["trend_trix"].iloc[-1]
-l_trix2 = df["trend_trix"].iloc[-2]
-slope_trix = l_trix - l_trix2
-# slope_trix2 = l_trix + l_trix2
-slope_trix = slope_trix/l_trix
+    df2 = df.iloc[12:]
+    fig_trix = px.bar(df2, x=df2.index, y="trend_trix", color="trend_trix")
+    fig_trix.update_layout(showlegend=False)
+    fig_trix.update_xaxes(visible=True, showticklabels=True)
+    fig_trix.update_yaxes(title='TRIX', visible=True, showticklabels=True)
+    l_trix = df["trend_trix"].iloc[-1]
+    l_trix2 = df["trend_trix"].iloc[-2]
+    slope_trix = l_trix - l_trix2
+    # slope_trix2 = l_trix + l_trix2
+    slope_trix = slope_trix/l_trix
 return l_trix, fig_trix, slope_trix
 
 
@@ -360,12 +354,12 @@ l_trix, fig_trix, slope_trix = trix(df)
 
 @st.cache_resource
 def mi(df):
-df_mi = df["trend_mass_index"].iloc[31:]
-fig_mi = px.line(df_mi)
-fig_mi.update_layout(showlegend=False)
-fig_mi.update_xaxes(visible=True, showticklabels=True)
-fig_mi.update_yaxes(title='Mass Index', visible=True, showticklabels=True)
-l_mi = df["trend_mass_index"].iloc[-1]
+    df_mi = df["trend_mass_index"].iloc[31:]
+    fig_mi = px.line(df_mi)
+    fig_mi.update_layout(showlegend=False)
+    fig_mi.update_xaxes(visible=True, showticklabels=True)
+    fig_mi.update_yaxes(title='Mass Index', visible=True, showticklabels=True)
+    l_mi = df["trend_mass_index"].iloc[-1]
 return l_mi, fig_mi
 
 
@@ -374,14 +368,14 @@ l_mi, fig_mi = mi(df)
 
 @st.cache_resource
 def cci(df):
-fig_cci = px.bar(df, 
-                 x=df.index, y="trend_cci", color="trend_cci",
-                 labels={"trend_cci": 'CCI'})
-fig_cci.update_layout(showlegend=False)
-fig_cci.update_xaxes(visible=True, showticklabels=True)
-fig_cci.update_yaxes(title='Commodity Channel Index',
-                     visible=True, showticklabels=True)
-l_cci = df["trend_cci"].iloc[-1]
+    fig_cci = px.bar(df, 
+                     x=df.index, y="trend_cci", color="trend_cci",
+                     labels={"trend_cci": 'CCI'})
+    fig_cci.update_layout(showlegend=False)
+    fig_cci.update_xaxes(visible=True, showticklabels=True)
+    fig_cci.update_yaxes(title='Commodity Channel Index',
+                         visible=True, showticklabels=True)
+    l_cci = df["trend_cci"].iloc[-1]
 return l_cci, fig_cci
 
 
@@ -390,14 +384,13 @@ l_cci, fig_cci = cci(df)
 
 @st.cache_resource
 def dpo(df):
-l_dp = df["trend_dpo"].iloc[-1]
-fig_dpo = px.area(df["trend_dpo"])
-fig_dpo.update_traces(fill='tozeroy', mode='lines')
-fig_dpo.update_layout(showlegend=False)
-fig_dpo.update_xaxes(visible=True, showticklabels=True)
-fig_dpo.update_yaxes(
-    title='Detrended Price Oscillator Index', visible=True,
-    showticklabels=True)
+    l_dp = df["trend_dpo"].iloc[-1]
+    fig_dpo = px.area(df["trend_dpo"])
+    fig_dpo.update_traces(fill='tozeroy', mode='lines')
+    fig_dpo.update_layout(showlegend=False)
+    fig_dpo.update_xaxes(visible=True, showticklabels=True)
+    fig_dpo.update_yaxes(title='Detrended Price Oscillator Index',
+                         visible=True, showticklabels=True)
 return l_dp, fig_dpo
 
 
@@ -406,20 +399,20 @@ l_dp, fig_dpo = dpo(df)
 
 @st.cache_resource
 def psar(df):
-df_psar_up = df.filter(["trend_psar_up"], axis=1)
-df_psar_ind = df.filter(["trend_psar_up_indicator",
-                         "trend_psar_down_indicator"], axis=1)
-fig_psar = go.Figure()
-fig_psar.add_trace(go.Scatter(x=df.index, y=df["Close"],
-                              mode='lines', name='lines'))
-fig_psar.add_trace(go.Scatter(x=df.index, y=df["trend_psar_up"],
-                              mode='lines+markers', name='lines+markers'))
-fig_psar.add_trace(go.Scatter(x=df.index,
-                   y=df["trend_psar_down"],
-                   mode='markers', name='markers'))
-l_psar = df_psar_up.iloc[-1]
-l_psar_downi = df['trend_psar_down_indicator'].iloc[-1]
-l_psar_upi = df['trend_psar_up_indicator'].iloc[-1]
+    df_psar_up = df.filter(["trend_psar_up"], axis=1)
+    df_psar_ind = df.filter(["trend_psar_up_indicator",
+                             "trend_psar_down_indicator"], axis=1)
+    fig_psar = go.Figure()
+    fig_psar.add_trace(go.Scatter(x=df.index, y=df["Close"],
+                                  mode='lines', name='lines'))
+    fig_psar.add_trace(go.Scatter(x=df.index, y=df["trend_psar_up"],
+                                  mode='lines+markers', name='lines+markers'))
+    fig_psar.add_trace(go.Scatter(x=df.index,
+                       y=df["trend_psar_down"],
+                       mode='markers', name='markers'))
+    l_psar = df_psar_up.iloc[-1]
+    l_psar_downi = df['trend_psar_down_indicator'].iloc[-1]
+    l_psar_upi = df['trend_psar_up_indicator'].iloc[-1]
 return l_psar, fig_psar, l_psar_downi, l_psar_upi
 
 
@@ -428,39 +421,37 @@ l_psar, fig_psar, l_psar_downi, l_psar_upi = psar(df)
 
 @st.cache_resource
 def rsif(df):
-rsi_21 = RSIIndicator(df['Close'], window=21)
-df["momentum_rsi_21"] = rsi_21.rsi()
-l_rsi21 = df["momentum_rsi_21"].iloc[-1]
-df_rsi = df.filter(["momentum_rsi", "momentum_rsi_21"],
-                   axis=1)
-# df_rsi = df_rsi.iloc[8:]
-fig_rsi = make_subplots(rows=2, cols=1, shared_xaxes=True,
-                        row_width=[0.4, 0.6])
-fig_rsi.add_trace(go.Candlestick(x=df.index,
-                                 open=df["Open"], high=df["High"],
-                                 low=df["Low"], close=df["Close"],
-                                 increasing_line_color='cyan',
-                                 decreasing_line_color='gray'),
-                  row=1, col=1)
-fig_rsi.add_trace(go.Scatter(x=df.index,
-                             y=df['momentum_rsi'], name='RSI 14',
-                             showlegend=False),
-                  row=2, col=1)
-fig_rsi.add_trace(go.Scatter(x=df.index,
-                             y=df["momentum_rsi_21"], name='RSI 21',
-                             showlegend=False), row=2, col=1)
-fig_rsi.update_layout(xaxis_rangeslider_visible=False)
-fig_rsi.update_layout(showlegend=False)
-fig_rsi_b = px.line(df_rsi)
-fig_rsi_b.add_hrect(y0=50, y1=75, line_width=0,
-                    fillcolor="blue", opacity=0.2)
-fig_rsi_b.add_hrect(y0=25, y1=50, line_width=0,
-                    fillcolor="yellow", opacity=0.2)
-fig_rsi.update_xaxes(showticklabels=True, visible=True)
-fig_rsi.update_yaxes(title=' ', showticklabels=True, visible=True)
-fig_rsi_b.update_layout(title=f'RSI for {stock}')
-fig_rsi_b.update_layout(showlegend=False)
-l_rsi = df["momentum_rsi"].iloc[-1]
+    rsi_21 = RSIIndicator(df['Close'], window=21)
+    df["momentum_rsi_21"] = rsi_21.rsi()
+    l_rsi21 = df["momentum_rsi_21"].iloc[-1]
+    df_rsi = df.filter(["momentum_rsi", "momentum_rsi_21"],
+                       axis=1)
+    # df_rsi = df_rsi.iloc[8:]
+    fig_rsi = make_subplots(rows=2, cols=1, shared_xaxes=True,
+                            row_width=[0.4, 0.6])
+    fig_rsi.add_trace(go.Candlestick(x=df.index,
+                                     open=df["Open"], high=df["High"],
+                                     low=df["Low"], close=df["Close"],
+                                     increasing_line_color='cyan',
+                                     decreasing_line_color='gray'),
+                      row=1, col=1)
+    fig_rsi.add_trace(go.Scatter(x=df.index,
+                                 y=df['momentum_rsi'], name='RSI 14',
+                                 showlegend=False),
+                      row=2, col=1)
+    fig_rsi.add_trace(go.Scatter(x=df.index,
+                                 y=df["momentum_rsi_21"], name='RSI 21',
+                                 showlegend=False), row=2, col=1)
+    fig_rsi.update_layout(xaxis_rangeslider_visible=False)
+    fig_rsi.update_layout(showlegend=False)
+    fig_rsi_b = px.line(df_rsi)
+    fig_rsi_b.add_hrect(y0=50, y1=75, line_width=0, fillcolor="blue", opacity=0.2)
+    fig_rsi_b.add_hrect(y0=25, y1=50, line_width=0, fillcolor="yellow", opacity=0.2)
+    fig_rsi.update_xaxes(showticklabels=True, visible=True)
+    fig_rsi.update_yaxes(title=' ', showticklabels=True, visible=True)
+    fig_rsi_b.update_layout(title=f'RSI for {stock}')
+    fig_rsi_b.update_layout(showlegend=False)
+    l_rsi = df["momentum_rsi"].iloc[-1]
 return fig_rsi, l_rsi, l_rsi21, fig_rsi_b
 
 
@@ -469,34 +460,34 @@ fig_rsi, l_rsi, l_rsi21, fig_rsi_b = rsif(df)
 
 @st.cache_resource
 def srsi(df):
-fig_rsik = make_subplots(
-    rows=2, cols=1, shared_xaxes=True, row_width=[0.4, 0.6])
-fig_rsik.add_trace(go.Ohlc(x=df.index, open=df["Open"], high=df["High"],
-                           low=df["Low"], close=df["Close"]), row=1, col=1)
-fig_rsik.add_trace(go.Scatter(x=df.index, y=df["momentum_stoch_rsi"],
-                              fill='tozeroy', mode='lines',
-                              line_color='blue'), row=2, col=1)
-fig_rsik.update_layout(xaxis_rangeslider_visible=False,
-                       height=500, showlegend=False)
-fig_rsik.update_xaxes(visible=True, showticklabels=True)
-fig_rsik.update_yaxes(visible=True, showticklabels=True)
-
-fig_rsik2 = go.Figure()
-fig_rsik2.add_trace(go.Scatter(x=df.index,
-                               y=df["momentum_stoch_rsi_k"],
-                               name='RSI - K',
-                               fill=None, mode='lines',
-                               line_color='green'))
-fig_rsik2.add_trace(go.Scatter(x=df.index,
-                               y=df["momentum_stoch_rsi_d"],
-                               name='RSI - D', fill='tonexty',
-                               mode='lines', line_color='indigo'))
-fig_rsik2.update_xaxes(visible=True, showticklabels=True)
-fig_rsik2.update_yaxes(visible=True, showticklabels=True)
-# fig_rsik2.update_layout(height=500, showlegend=False)
-l_srsi = df["momentum_stoch_rsi"].iloc[-1]
-l_srsi_k = df["momentum_stoch_rsi_k"].iloc[-1]
-l_srsi_d = df["momentum_stoch_rsi_d"].iloc[-1]
+    fig_rsik = make_subplots(
+        rows=2, cols=1, shared_xaxes=True, row_width=[0.4, 0.6])
+    fig_rsik.add_trace(go.Ohlc(x=df.index, open=df["Open"], high=df["High"],
+                               low=df["Low"], close=df["Close"]), row=1, col=1)
+    fig_rsik.add_trace(go.Scatter(x=df.index, y=df["momentum_stoch_rsi"],
+                                  fill='tozeroy', mode='lines',
+                                  line_color='blue'), row=2, col=1)
+    fig_rsik.update_layout(xaxis_rangeslider_visible=False,
+                           height=500, showlegend=False)
+    fig_rsik.update_xaxes(visible=True, showticklabels=True)
+    fig_rsik.update_yaxes(visible=True, showticklabels=True)
+    
+    fig_rsik2 = go.Figure()
+    fig_rsik2.add_trace(go.Scatter(x=df.index,
+                                   y=df["momentum_stoch_rsi_k"],
+                                   name='RSI - K',
+                                   fill=None, mode='lines',
+                                   line_color='green'))
+    fig_rsik2.add_trace(go.Scatter(x=df.index,
+                                   y=df["momentum_stoch_rsi_d"],
+                                   name='RSI - D', fill='tonexty',
+                                   mode='lines', line_color='indigo'))
+    fig_rsik2.update_xaxes(visible=True, showticklabels=True)
+    fig_rsik2.update_yaxes(visible=True, showticklabels=True)
+    # fig_rsik2.update_layout(height=500, showlegend=False)
+    l_srsi = df["momentum_stoch_rsi"].iloc[-1]
+    l_srsi_k = df["momentum_stoch_rsi_k"].iloc[-1]
+    l_srsi_d = df["momentum_stoch_rsi_d"].iloc[-1]
 
 return l_srsi, fig_rsik, l_srsi_k, l_srsi_d, fig_rsik2
 
@@ -506,21 +497,21 @@ l_srsi, fig_rsik, l_srsi_k, l_srsi_d, fig_rsik2 = srsi(df)
 
 @st.cache_resource
 def tsi(df):
-df_tsi = df["momentum_tsi"].iloc[15:]
-fig_tsi = go.Figure()
-fig_tsi.add_trace(go.Scatter(x=df.index,
-                             y=df['momentum_tsi'].iloc[14:],
-                             fill='tozeroy'))
-max_tsi = df_tsi.max(axis=0)
-
-min_tsi = df_tsi.min(axis=0)
-hi_lim_tsi = max_tsi*0.45
-lo_lim_tsi = min_tsi*0.45
-fig_tsi.update_layout(showlegend=False)
-fig_tsi.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_tsi.update_yaxes(title='True Strength Index',
-                     visible=True, showticklabels=True)
-l_tsi = df["momentum_tsi"].iloc[-1]
+    df_tsi = df["momentum_tsi"].iloc[15:]
+    fig_tsi = go.Figure()
+    fig_tsi.add_trace(go.Scatter(x=df.index,
+                                 y=df['momentum_tsi'].iloc[14:],
+                                 fill='tozeroy'))
+    max_tsi = df_tsi.max(axis=0)
+    
+    min_tsi = df_tsi.min(axis=0)
+    hi_lim_tsi = max_tsi*0.45
+    lo_lim_tsi = min_tsi*0.45
+    fig_tsi.update_layout(showlegend=False)
+    fig_tsi.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_tsi.update_yaxes(title='True Strength Index',
+                         visible=True, showticklabels=True)
+    l_tsi = df["momentum_tsi"].iloc[-1]
 return fig_tsi, l_tsi, hi_lim_tsi, lo_lim_tsi
 
 
@@ -529,13 +520,12 @@ fig_tsi, l_tsi, hi_lim_tsi, lo_lim_tsi = tsi(df)
 
 @st.cache_resource
 def uo(df):
-df_uo = df["momentum_uo"].iloc[5:]
-fig_uo = px.line(df_uo)
-l_uo = df['momentum_uo'].iloc[-1]
-fig_uo.update_layout(showlegend=False)
-fig_uo.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_uo.update_yaxes(title='Ultimate Oscillator Index',
-                    visible=True, showticklabels=True)
+    df_uo = df["momentum_uo"].iloc[5:]
+    fig_uo = px.line(df_uo)
+    l_uo = df['momentum_uo'].iloc[-1]
+    fig_uo.update_layout(showlegend=False)
+    fig_uo.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_uo.update_yaxes(title='Ultimate Oscillator Index', visible=True, showticklabels=True)
 return l_uo, fig_uo
 
 
@@ -557,12 +547,12 @@ l_wr, fig_wr = wr(df)
 
 @st.cache_resource
 def roc(df):
-fig_roc = px.bar(df["momentum_roc"], color=df['momentum_roc'])
-fig_roc.update_layout(showlegend=False)
-fig_roc.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_roc.update_yaxes(title='Rate of Change', visible=True,
-                     showticklabels=True)
-l_roc = df["momentum_roc"].iloc[-1]
+    fig_roc = px.bar(df["momentum_roc"], color=df['momentum_roc'])
+    fig_roc.update_layout(showlegend=False)
+    fig_roc.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_roc.update_yaxes(title='Rate of Change', visible=True,
+                         showticklabels=True)
+    l_roc = df["momentum_roc"].iloc[-1]
 return l_roc, fig_roc
 
 
@@ -571,22 +561,22 @@ l_roc, fig_roc = roc(df)
 
 @st.cache_resource
 def kst(df):
-df_kst = df.filter(["trend_kst", "trend_kst_sig", "trend_kst_diff"],
-                   axis=1)
-fig_kst = px.line(df["trend_kst"])
-fig_kst.update_layout(showlegend=False)
-fig_kst.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_kst.update_yaxes(title='Keltner Channels', visible=True,
-                     showticklabels=True)
-fig_kst_sig = px.area(df_kst)
-fig_kst_sig.update_layout(showlegend=False)
-fig_kst_sig.update_xaxes(title='Timeline', visible=True,
+    df_kst = df.filter(["trend_kst", "trend_kst_sig", "trend_kst_diff"],
+                       axis=1)
+    fig_kst = px.line(df["trend_kst"])
+    fig_kst.update_layout(showlegend=False)
+    fig_kst.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_kst.update_yaxes(title='Keltner Channels', visible=True,
                          showticklabels=True)
-fig_kst_sig.update_yaxes(title='KST Index, Diff & Signals', visible=True,
-                         showticklabels=True)
-
-l_kst_sig = df['trend_kst_sig'].iloc[-1]
-l_kst = df["trend_kst"].iloc[-1]
+    fig_kst_sig = px.area(df_kst)
+    fig_kst_sig.update_layout(showlegend=False)
+    fig_kst_sig.update_xaxes(title='Timeline', visible=True,
+                             showticklabels=True)
+    fig_kst_sig.update_yaxes(title='KST Index, Diff & Signals', visible=True,
+                             showticklabels=True)
+    
+    l_kst_sig = df['trend_kst_sig'].iloc[-1]
+    l_kst = df["trend_kst"].iloc[-1]
 return l_kst, fig_kst, fig_kst_sig, l_kst_sig
 
 
@@ -595,52 +585,52 @@ l_kst, fig_kst, fig_kst_sig, l_kst_sig = kst(df)
 
 @st.cache_resource
 def ichi(df):
-l_ichi = df["trend_ichimoku_conv"].iloc[-1]
-fig_ichi = go.Figure()
-fig_ichi.add_trace(go.Candlestick(x=df.index,
-                                  open=df["Open"], high=df["High"],
-                                  low=df["Low"], close=df["Close"],
-                                  name="OHLC - Price Plot",
-                                  increasing_line_color='cyan',
-                                  decreasing_line_color='gray'))
-df_ichi2 = df.filter(['trend_ichimoku_conv', "trend_ichimoku_base",
-                      "trend_ichimoku_a", "trend_ichimoku_b"])
-
-fig_ichi.add_trace(go.Scatter(
-    x=df.index, y=df['trend_ichimoku_conv'],
-    name='Ichimoku Convergence', showlegend=True))
-fig_ichi.add_trace(go.Scatter(
-    x=df.index, y=df["trend_ichimoku_base"],
-    name='Ichimoku Base', showlegend=True))
-#  fig_ichi.add_trace(go.Scatter(
-#      x=df.index, y=df["trend_ichimoku_a"], name='Ichimoku A',
-#        showlegend=False))
-#  fig_ichi.add_trace(go.Scatter(
-#       x=df.index, y=df["trend_ichimoku_b"], name='Ichimoku B',
-#  showlegend=False))
-l_ichi_b = df["trend_ichimoku_base"].iloc[-1]
-
-fig_ichi.update_layout(xaxis_rangeslider_visible=False)
-fig_ichi.update_layout(showlegend=False)
-fig_ichi.update_xaxes(visible=True, showticklabels=True)
-fig_ichi.update_yaxes(title='Ichimoku Indices', visible=True,
-                      showticklabels=True)
-fig_ichi3 = px.line(df_ichi2)
-fig_ichi2 = go.Figure()
-fig_ichi2.add_trace(go.Scatter(
-    x=df.index, y=df["trend_visual_ichimoku_a"],
-    name='Ichimoku A - Visual', showlegend=False))
-fig_ichi2.add_trace(go.Scatter(
-    x=df.index, y=df["trend_visual_ichimoku_b"],
-    name='Ichimoku B - Visual', showlegend=False))
-# fig_ichi2.update_layout(xaxis_rangeslider_visible=False)
-fig_ichi2.update_layout(height=350, showlegend=False)
-fig_ichi2.update_xaxes(visible=False, showticklabels=True)
-fig_ichi2.update_yaxes(title='Ichimoku Visual', visible=True,
-                       showticklabels=True)
-fig_ichi3.update_layout(height=350, showlegend=False)
-fig_ichi3.update_xaxes(visible=False, showticklabels=True)
-fig_ichi3.update_yaxes(title='Ichimoku', visible=True, showticklabels=True)
+    l_ichi = df["trend_ichimoku_conv"].iloc[-1]
+    fig_ichi = go.Figure()
+    fig_ichi.add_trace(go.Candlestick(x=df.index,
+                                      open=df["Open"], high=df["High"],
+                                      low=df["Low"], close=df["Close"],
+                                      name="OHLC - Price Plot",
+                                      increasing_line_color='cyan',
+                                      decreasing_line_color='gray'))
+    df_ichi2 = df.filter(['trend_ichimoku_conv', "trend_ichimoku_base",
+                          "trend_ichimoku_a", "trend_ichimoku_b"])
+    
+    fig_ichi.add_trace(go.Scatter(
+        x=df.index, y=df['trend_ichimoku_conv'],
+        name='Ichimoku Convergence', showlegend=True))
+    fig_ichi.add_trace(go.Scatter(
+        x=df.index, y=df["trend_ichimoku_base"],
+        name='Ichimoku Base', showlegend=True))
+    #  fig_ichi.add_trace(go.Scatter(
+    #      x=df.index, y=df["trend_ichimoku_a"], name='Ichimoku A',
+    #        showlegend=False))
+    #  fig_ichi.add_trace(go.Scatter(
+    #       x=df.index, y=df["trend_ichimoku_b"], name='Ichimoku B',
+    #  showlegend=False))
+    l_ichi_b = df["trend_ichimoku_base"].iloc[-1]
+    
+    fig_ichi.update_layout(xaxis_rangeslider_visible=False)
+    fig_ichi.update_layout(showlegend=False)
+    fig_ichi.update_xaxes(visible=True, showticklabels=True)
+    fig_ichi.update_yaxes(title='Ichimoku Indices', visible=True,
+                          showticklabels=True)
+    fig_ichi3 = px.line(df_ichi2)
+    fig_ichi2 = go.Figure()
+    fig_ichi2.add_trace(go.Scatter(
+        x=df.index, y=df["trend_visual_ichimoku_a"],
+        name='Ichimoku A - Visual', showlegend=False))
+    fig_ichi2.add_trace(go.Scatter(
+        x=df.index, y=df["trend_visual_ichimoku_b"],
+        name='Ichimoku B - Visual', showlegend=False))
+    # fig_ichi2.update_layout(xaxis_rangeslider_visible=False)
+    fig_ichi2.update_layout(height=350, showlegend=False)
+    fig_ichi2.update_xaxes(visible=False, showticklabels=True)
+    fig_ichi2.update_yaxes(title='Ichimoku Visual', visible=True,
+                           showticklabels=True)
+    fig_ichi3.update_layout(height=350, showlegend=False)
+    fig_ichi3.update_xaxes(visible=False, showticklabels=True)
+    fig_ichi3.update_yaxes(title='Ichimoku', visible=True, showticklabels=True)
 return fig_ichi, l_ichi, fig_ichi2, fig_ichi3, l_ichi_b
 
 
@@ -649,11 +639,11 @@ fig_ichi, l_ichi, fig_ichi2, fig_ichi3, l_ichi_b = ichi(df)
 
 @st.cache_resource
 def stc(df):
-fig_stc = px.line(df["trend_stc"])
-fig_stc.update_layout(showlegend=False)
-fig_stc.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_stc.update_yaxes(title='STCI', visible=True, showticklabels=True)
-l_stc = df['trend_stc'].iloc[-1]
+    fig_stc = px.line(df["trend_stc"])
+    fig_stc.update_layout(showlegend=False)
+    fig_stc.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_stc.update_yaxes(title='STCI', visible=True, showticklabels=True)
+    l_stc = df['trend_stc'].iloc[-1]
 return l_stc, fig_stc
 
 
@@ -662,19 +652,19 @@ l_stc, fig_stc = stc(df)
 
 @st.cache_resource
 def stoch(df):
-df_stoch = df.filter(["momentum_stoch", "momentum_stoch_signal"], axis=1)
-fig_stoch = px.area(df_stoch)
-l_stoch = df["momentum_stoch"].iloc[-1]
-fig_stoch.update_layout(showlegend=False)
-fig_stoch.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_stoch.update_yaxes(title='Stochastic Oscillator Index',
-                       visible=True, showticklabels=True)
-fig_stoch_sig = px.bar(df["momentum_stoch_signal"])
-fig_stoch_sig.update_layout(showlegend=False)
-fig_stoch_sig.update_xaxes(
-    title='Timeline', visible=True, showticklabels=True)
-fig_stoch_sig.update_yaxes(
-    title='Stoch Signal', visible=True, showticklabels=True)
+    df_stoch = df.filter(["momentum_stoch", "momentum_stoch_signal"], axis=1)
+    fig_stoch = px.area(df_stoch)
+    l_stoch = df["momentum_stoch"].iloc[-1]
+    fig_stoch.update_layout(showlegend=False)
+    fig_stoch.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_stoch.update_yaxes(title='Stochastic Oscillator Index',
+                           visible=True, showticklabels=True)
+    fig_stoch_sig = px.bar(df["momentum_stoch_signal"])
+    fig_stoch_sig.update_layout(showlegend=False)
+    fig_stoch_sig.update_xaxes(
+        title='Timeline', visible=True, showticklabels=True)
+    fig_stoch_sig.update_yaxes(
+        title='Stoch Signal', visible=True, showticklabels=True)
 return fig_stoch, fig_stoch_sig, l_stoch
 
 
@@ -683,12 +673,12 @@ fig_stoch, fig_stoch_sig, l_stoch = stoch(df)
 
 @st.cache_resource
 def ao(df):
-fig_ao = px.histogram(df["momentum_ao"], x=df.index, )
-fig_ao.update_layout(showlegend=False)
-fig_ao.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_ao.update_yaxes(title='Awesome Oscillator',
-                    visible=True, showticklabels=True)
-l_ao = df["momentum_ao"].iloc[-1]
+    fig_ao = px.histogram(df["momentum_ao"], x=df.index, )
+    fig_ao.update_layout(showlegend=False)
+    fig_ao.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_ao.update_yaxes(title='Awesome Oscillator',
+                        visible=True, showticklabels=True)
+    l_ao = df["momentum_ao"].iloc[-1]
 return l_ao, fig_ao
 
 
@@ -697,12 +687,12 @@ l_ao, fig_ao = ao(df)
 
 @st.cache_resource
 def kama(df):
-fig_kama = px.area(df["momentum_kama"])
-fig_kama.update_layout(showlegend=False)
-fig_kama.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_kama.update_yaxes(title='Kaufmanns Moving Average',
-                      visible=True, showticklabels=True)
-l_kama = df["momentum_kama"].iloc[-1]
+    fig_kama = px.area(df["momentum_kama"])
+    fig_kama.update_layout(showlegend=False)
+    fig_kama.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_kama.update_yaxes(title='Kaufmanns Moving Average',
+                          visible=True, showticklabels=True)
+    l_kama = df["momentum_kama"].iloc[-1]
 return fig_kama, l_kama
 
 
@@ -711,28 +701,28 @@ fig_kama, l_kama = kama(df)
 
 @st.cache_resource
 def ppo(df):
-fig_ppo = make_subplots(rows=2, cols=1, shared_xaxes=True,
-                        vertical_spacing=0.04, row_width=[0.4, 0.7])
-fig_ppo.add_trace(go.Candlestick(x=df.index,
-                                 open=df["Open"], high=df["High"],
-                                 low=df["Low"], close=df["Close"],
-                                 name="Price against Moving Averages",
-                                 increasing_line_color='cyan',
-                                 decreasing_line_color='gray'), row=1, col=1)
-fig_ppo.add_trace(go.Scatter(
-    x=df.index, y=df["momentum_ppo"], name='PPO', showlegend=False), row=2, col=1)
-fig_ppo.add_trace(go.Scatter(
-    x=df.index, y=df["momentum_ppo_hist"], name='PPO Histogram', showlegend=False), row=2, col=1)
-fig_ppo.add_trace(go.Scatter(
-    x=df.index, y=df["momentum_ppo_signal"], name='PPO Signal', showlegend=False), row=2, col=1)
-fig_ppo.update_layout(xaxis_rangeslider_visible=False, showlegend=False)
-
-fig_ppo.update_xaxes(title='Timeline', visible=False, showticklabels=True)
-fig_ppo.update_yaxes(title=' ',
-                     visible=True, showticklabels=True)
-fig_ppo_signal = px.bar(df["momentum_ppo_signal"])
-fig_ppo_signal.update_layout(title=f'PPO Signal for {stock}',
-                             showlegend=False)
+    fig_ppo = make_subplots(rows=2, cols=1, shared_xaxes=True,
+                            vertical_spacing=0.04, row_width=[0.4, 0.7])
+    fig_ppo.add_trace(go.Candlestick(x=df.index,
+                                     open=df["Open"], high=df["High"],
+                                     low=df["Low"], close=df["Close"],
+                                     name="Price against Moving Averages",
+                                     increasing_line_color='cyan',
+                                     decreasing_line_color='gray'), row=1, col=1)
+    fig_ppo.add_trace(go.Scatter(
+        x=df.index, y=df["momentum_ppo"], name='PPO', showlegend=False), row=2, col=1)
+    fig_ppo.add_trace(go.Scatter(
+        x=df.index, y=df["momentum_ppo_hist"], name='PPO Histogram', showlegend=False), row=2, col=1)
+    fig_ppo.add_trace(go.Scatter(
+        x=df.index, y=df["momentum_ppo_signal"], name='PPO Signal', showlegend=False), row=2, col=1)
+    fig_ppo.update_layout(xaxis_rangeslider_visible=False, showlegend=False)
+    
+    fig_ppo.update_xaxes(title='Timeline', visible=False, showticklabels=True)
+    fig_ppo.update_yaxes(title=' ',
+                         visible=True, showticklabels=True)
+    fig_ppo_signal = px.bar(df["momentum_ppo_signal"])
+    fig_ppo_signal.update_layout(title=f'PPO Signal for {stock}',
+                                 showlegend=False)
 
 return fig_ppo, fig_ppo_signal
 
@@ -741,33 +731,33 @@ fig_ppo, fig_ppo_signal = ppo(df)
 
 
 @st.cache_resource
-def pvo(df):
-fig_pvo = make_subplots(rows=2, cols=1, shared_xaxes=True,
-                        vertical_spacing=0.02, row_width=[0.5, 0.5])
-fig_pvo.add_trace(go.Candlestick(x=df.index,
-                                 open=df["Open"], high=df["High"],
-                                 low=df["Low"], close=df["Close"],
-                                 name="Price against Moving Averages",
-                                 increasing_line_color='cyan', decreasing_line_color='gray'),
-                  row=1, col=1)
-fig_pvo.add_trace(go.Scatter(
-    x=df.index, y=df["momentum_pvo"], name='PVO', showlegend=False),
-    row=2, col=1)
-fig_pvo.add_trace(go.Scatter(
-    x=df.index, y=df["momentum_pvo_hist"], name='PVO Histogram', showlegend=False),
-    row=2, col=1)
-fig_pvo.add_trace(go.Scatter(
-    x=df.index, y=df["momentum_pvo_signal"],
-    name='PVO Signal',
-    showlegend=False),
-    row=2, col=1)
-fig_pvo.update_layout(xaxis_rangeslider_visible=False, showlegend=False)
-
-fig_pvo.update_xaxes(title='Timeline', visible=False, showticklabels=True)
-fig_pvo.update_yaxes(title=' ', visible=True, showticklabels=True)
-fig_pvo_signal = px.bar(df["momentum_pvo_signal"])
-fig_pvo_signal.update_layout(
-    title=f'PVO Signal for {stock}', showlegend=False)
+    def pvo(df):
+    fig_pvo = make_subplots(rows=2, cols=1, shared_xaxes=True,
+                            vertical_spacing=0.02, row_width=[0.5, 0.5])
+    fig_pvo.add_trace(go.Candlestick(x=df.index,
+                                     open=df["Open"], high=df["High"],
+                                     low=df["Low"], close=df["Close"],
+                                     name="Price against Moving Averages",
+                                     increasing_line_color='cyan', decreasing_line_color='gray'),
+                      row=1, col=1)
+    fig_pvo.add_trace(go.Scatter(
+        x=df.index, y=df["momentum_pvo"], name='PVO', showlegend=False),
+        row=2, col=1)
+    fig_pvo.add_trace(go.Scatter(
+        x=df.index, y=df["momentum_pvo_hist"], name='PVO Histogram', showlegend=False),
+        row=2, col=1)
+    fig_pvo.add_trace(go.Scatter(
+        x=df.index, y=df["momentum_pvo_signal"],
+        name='PVO Signal',
+        showlegend=False),
+        row=2, col=1)
+    fig_pvo.update_layout(xaxis_rangeslider_visible=False, showlegend=False)
+    
+    fig_pvo.update_xaxes(title='Timeline', visible=False, showticklabels=True)
+    fig_pvo.update_yaxes(title=' ', visible=True, showticklabels=True)
+    fig_pvo_signal = px.bar(df["momentum_pvo_signal"])
+    fig_pvo_signal.update_layout(
+        title=f'PVO Signal for {stock}', showlegend=False)
 
 return fig_pvo, fig_pvo_signal
 
@@ -777,28 +767,28 @@ fig_pvo, fig_pvo_signal = pvo(df)
 
 @st.cache_resource
 def atr(df):
-df_atr = df["volatility_atr"]
-fig_atr = make_subplots(rows=2, cols=1, shared_xaxes=True)
-fig_atr.add_trace(go.Candlestick(x=df.index,
-                                 open=df["Open"], high=df["High"],
-                                 low=df["Low"], close=df["Close"],
-                                 name="OHLC - Price Plot",
-                                 increasing_line_color='cyan',
-                                 decreasing_line_color='gray'), row=1, col=1)
-fig_atr.add_trace(go.Scatter(x=df.index, y=df_atr, name='Average True Range',
-                             showlegend=False), row=2, col=1)
-fig_atr.update_layout(xaxis_rangeslider_visible=False)
-fig_atr.update_layout(title=f'Average true range for {stock}')
-fig_atr.update_layout(showlegend=False)
-fig_atr.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_ui = px.bar(df['volatility_ui'])
-fig_ui.update_xaxes(
-    title='Timeline', visible=True, showticklabels=True)
-fig_ui.update_yaxes(title='ATR & Ulcer Index',
-                    visible=True, showticklabels=True)
-fig_ui.update_layout(height=400, showlegend=False)
-l_ui = df['volatility_ui'].iloc[-1]
-l_atr = df["volatility_atr"].iloc[-1]
+    df_atr = df["volatility_atr"]
+    fig_atr = make_subplots(rows=2, cols=1, shared_xaxes=True)
+    fig_atr.add_trace(go.Candlestick(x=df.index,
+                                     open=df["Open"], high=df["High"],
+                                     low=df["Low"], close=df["Close"],
+                                     name="OHLC - Price Plot",
+                                     increasing_line_color='cyan',
+                                     decreasing_line_color='gray'), row=1, col=1)
+    fig_atr.add_trace(go.Scatter(x=df.index, y=df_atr, name='Average True Range',
+                                 showlegend=False), row=2, col=1)
+    fig_atr.update_layout(xaxis_rangeslider_visible=False)
+    fig_atr.update_layout(title=f'Average true range for {stock}')
+    fig_atr.update_layout(showlegend=False)
+    fig_atr.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_ui = px.bar(df['volatility_ui'])
+    fig_ui.update_xaxes(
+        title='Timeline', visible=True, showticklabels=True)
+    fig_ui.update_yaxes(title='ATR & Ulcer Index',
+                        visible=True, showticklabels=True)
+    fig_ui.update_layout(height=400, showlegend=False)
+    l_ui = df['volatility_ui'].iloc[-1]
+    l_atr = df["volatility_atr"].iloc[-1]
 return l_atr, fig_atr, l_ui, fig_ui
 
 
@@ -807,21 +797,21 @@ l_atr, fig_atr, l_ui, fig_ui = atr(df)
 
 @st.cache_resource
 def dr(df):
-l_dr = df["others_dr"].iloc[-1]
-fig_dr = go.Figure()
-fig_dr.add_trace(go.Scatter(
-    x=df.index, y=df['others_dr'], name='Direct Returns'))
-fig_dr.add_trace(go.Scatter(
-    x=df.index, y=df['others_dlr'], name='Logarithmic Returns'))
-fig_dr.add_trace(go.Scatter(
-    x=df.index, y=df['others_cr'], name='Cumulative Returns'))
-l_dlr = df["others_dlr"].iloc[-1]
-delta_r = l_dr - l_dlr
-fig_dlr = px.line(df["others_dlr"].iloc[10:])
-fig_dlr.update_layout(height=400, title=f"Direct Logarithmic Returns for {stock}",
-                      showlegend=False)
-fig_dr.update_layout(height=400, title=f"Direct and Log Returns for {stock}",
-                     showlegend=False)
+    l_dr = df["others_dr"].iloc[-1]
+    fig_dr = go.Figure()
+    fig_dr.add_trace(go.Scatter(
+        x=df.index, y=df['others_dr'], name='Direct Returns'))
+    fig_dr.add_trace(go.Scatter(
+        x=df.index, y=df['others_dlr'], name='Logarithmic Returns'))
+    fig_dr.add_trace(go.Scatter(
+        x=df.index, y=df['others_cr'], name='Cumulative Returns'))
+    l_dlr = df["others_dlr"].iloc[-1]
+    delta_r = l_dr - l_dlr
+    fig_dlr = px.line(df["others_dlr"].iloc[10:])
+    fig_dlr.update_layout(height=400, title=f"Direct Logarithmic Returns for {stock}",
+                          showlegend=False)
+    fig_dr.update_layout(height=400, title=f"Direct and Log Returns for {stock}",
+                         showlegend=False)
 return l_dr, fig_dr, l_dlr, delta_r, fig_dlr
 
 
@@ -830,13 +820,12 @@ l_dr, fig_dr, l_dlr, delta_r, fig_dlr = dr(df)
 
 @st.cache_resource
 def cr(df):
-fig_cr = px.line(df["others_cr"])
-l_cr = df["others_cr"].iloc[-1]
-fig_cr.update_layout(height=400,
-                     title=f"Cumulative Returns for {stock}", showlegend=False)
-fig_cr.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-fig_cr.update_yaxes(title='Cumulative Returns',
-                    visible=True, showticklabels=True)
+    fig_cr = px.line(df["others_cr"])
+    l_cr = df["others_cr"].iloc[-1]
+    fig_cr.update_layout(height=400, 
+                         title=f"Cumulative Returns for {stock}", showlegend=False)
+    fig_cr.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    fig_cr.update_yaxes(title='Cumulative Returns', visible=True, showticklabels=True)
 return l_cr, fig_cr
 
 
@@ -845,12 +834,12 @@ l_cr, fig_cr = cr(df)
 
 @st.cache_resource
 def mfi(df):
-fig_mfi = px.line(df["volume_mfi"].iloc[10:])
-l_mfi = df['volume_mfi'].iloc[-1]
-fig_mfi.update_layout(height=400,
-                      title=f'Money Flow for {stock}', showlegend=False)
-fig_mfi.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-fig_mfi.update_yaxes(title="Money Flow", showticklabels=True, visible=True)
+    fig_mfi = px.line(df["volume_mfi"].iloc[10:])
+    l_mfi = df['volume_mfi'].iloc[-1]
+    fig_mfi.update_layout(height=400,
+                          title=f'Money Flow for {stock}', showlegend=False)
+    fig_mfi.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    fig_mfi.update_yaxes(title="Money Flow", showticklabels=True, visible=True)
 return l_mfi, fig_mfi
 
 
@@ -859,13 +848,13 @@ l_mfi, fig_mfi = mfi(df)
 
 @st.cache_resource
 def adi(df):
-fig_adi = px.area(df["volume_adi"])
-fig_adi.update_layout(title=f'Calculated ADI for {stock}', showlegend=False)
-fig_adi.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-fig_adi.update_yaxes(
-    title=f'ADI for {stock}', showticklabels=True, visible=True)
-l_adi = df["volume_adi"].iloc[-1]
-l_adi = l_adi/100000
+    fig_adi = px.area(df["volume_adi"])
+    fig_adi.update_layout(title=f'Calculated ADI for {stock}', showlegend=False)
+    fig_adi.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    fig_adi.update_yaxes(
+        title=f'ADI for {stock}', showticklabels=True, visible=True)
+    l_adi = df["volume_adi"].iloc[-1]
+    l_adi = l_adi/100000
 return l_adi, fig_adi
 
 
@@ -874,16 +863,16 @@ l_adi, fig_adi = adi(df)
 
 @st.cache_resource
 def obvf(df):
-fig_obv = px.line(df["volume_obv"])
-fig_obv.update_layout(title=f'OBV Signal for {stock}', showlegend=False)
-fig_obv.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-fig_obv.update_yaxes(title="On-Balance Volume",
-                     showticklabels=True, visible=True)
-# fig_obv.update_traces(texttemplate='%{text:.2s}', textposition='outside')
-fig_obv.update_layout(height=400)
-# , uniformtext_minsize=8, uniformtext_mode='hide')
-l_obv = df["volume_obv"].iloc[-1]
-l_obv = l_obv/100000
+    fig_obv = px.line(df["volume_obv"])
+    fig_obv.update_layout(title=f'OBV Signal for {stock}', showlegend=False)
+    fig_obv.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    fig_obv.update_yaxes(title="On-Balance Volume",
+                         showticklabels=True, visible=True)
+    # fig_obv.update_traces(texttemplate='%{text:.2s}', textposition='outside')
+    fig_obv.update_layout(height=400)
+    # , uniformtext_minsize=8, uniformtext_mode='hide')
+    l_obv = df["volume_obv"].iloc[-1]
+    l_obv = l_obv/100000
 return l_obv, fig_obv
 
 
@@ -892,15 +881,15 @@ l_obv, fig_obv = obvf(df)
 
 @st.cache_resource
 def cmf(df):
-df_cmf = df["volume_cmf"].iloc[4:]
-fig_cmf = px.bar(df, x=df.index, y="volume_cmf", color="volume_cmf",
-                 labels={"volume_cmf": 'CMFI'})
-l_cmf = df["volume_cmf"].iloc[-1]
-fig_cmf.update_layout(
-    title=f'Chaikins Money Flow Index for {stock}', showlegend=False)
-fig_cmf.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-fig_cmf.update_yaxes(title="Chaikins Money Flow",
-                     showticklabels=True, visible=True)
+    df_cmf = df["volume_cmf"].iloc[4:]
+    fig_cmf = px.bar(df, x=df.index, y="volume_cmf", color="volume_cmf",
+                     labels={"volume_cmf": 'CMFI'})
+    l_cmf = df["volume_cmf"].iloc[-1]
+    fig_cmf.update_layout(
+        title=f'Chaikins Money Flow Index for {stock}', showlegend=False)
+    fig_cmf.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    fig_cmf.update_yaxes(title="Chaikins Money Flow",
+                         showticklabels=True, visible=True)
 return l_cmf, fig_cmf
 
 
@@ -909,13 +898,13 @@ l_cmf, fig_cmf = cmf(df)
 
 @st.cache_resource
 def fi(df):
-fig_fi = px.area(df['volume_fi'])
-l_fi = df["volume_fi"].iloc[-1]
-fig_fi.update_layout(
-    title=f'Force Index for {stock}')
-fig_fi.update_layout(showlegend=False)
-fig_fi.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-fig_fi.update_yaxes(title="Force Index", showticklabels=True, visible=True)
+    fig_fi = px.area(df['volume_fi'])
+    l_fi = df["volume_fi"].iloc[-1]
+    fig_fi.update_layout(
+        title=f'Force Index for {stock}')
+    fig_fi.update_layout(showlegend=False)
+    fig_fi.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    fig_fi.update_yaxes(title="Force Index", showticklabels=True, visible=True)
 return l_fi, fig_fi
 
 
@@ -924,22 +913,22 @@ l_fi, fig_fi = fi(df)
 
 @st.cache_resource
 def em(df):
-df_em = df.filter(["volume_em", "volume_sma_em"], axis=1)
-fig_em = px.area(df_em)
-fig_em.update_layout(title='Ease of Movement', showlegend=False)
-fig_em.update_yaxes(title='Ease of Movement Index',
-                    showticklabels=True, visible=True)
-fig_em.update_xaxes(title='Ease of Movement Index',
-                    showticklabels=True, visible=False)
-
-fig_sma_em = px.line(df["volume_sma_em"])
-fig_sma_em.update_layout(title='Ease of Movement - SMA', showlegend=False)
-l_em = df["volume_em"].iloc[-1]
-
-l_sma_em = df["volume_sma_em"].iloc[-1]
-l_sma_em2 = df["volume_sma_em"].iloc[-2]
-
-delta_em = l_em - l_sma_em
+    df_em = df.filter(["volume_em", "volume_sma_em"], axis=1)
+    fig_em = px.area(df_em)
+    fig_em.update_layout(title='Ease of Movement', showlegend=False)
+    fig_em.update_yaxes(title='Ease of Movement Index',
+                        showticklabels=True, visible=True)
+    fig_em.update_xaxes(title='Ease of Movement Index',
+                        showticklabels=True, visible=False)
+    
+    fig_sma_em = px.line(df["volume_sma_em"])
+    fig_sma_em.update_layout(title='Ease of Movement - SMA', showlegend=False)
+    l_em = df["volume_em"].iloc[-1]
+    
+    l_sma_em = df["volume_sma_em"].iloc[-1]
+    l_sma_em2 = df["volume_sma_em"].iloc[-2]
+    
+    delta_em = l_em - l_sma_em
 return fig_em, fig_sma_em, l_em, l_sma_em, delta_em
 
 
@@ -948,12 +937,12 @@ fig_em, fig_sma_em, l_em, l_sma_em, delta_em = em(df)
 
 @st.cache_resource
 def nvi(df):
-fig_nvi = px.line(df["volume_nvi"])
-fig_nvi.update_layout(showlegend=False)
-fig_nvi.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-fig_nvi.update_yaxes(title="Negative Volume Index",
-                     showticklabels=True, visible=True)
-l_nvi = df["volume_nvi"].iloc[-1]
+    fig_nvi = px.line(df["volume_nvi"])
+    fig_nvi.update_layout(showlegend=False)
+    fig_nvi.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    fig_nvi.update_yaxes(title="Negative Volume Index",
+                         showticklabels=True, visible=True)
+    l_nvi = df["volume_nvi"].iloc[-1]
 return l_nvi, fig_nvi
 
 
@@ -962,12 +951,12 @@ l_nvi, fig_nvi = nvi(df)
 
 @st.cache_resource
 def vwap(df):
-fig_vwap = px.line(df["volume_vwap"])
-fig_vwap.update_layout(showlegend=False)
-fig_vwap.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-fig_vwap.update_yaxes(title="Volume Weighted Average Price",
-                      showticklabels=True, visible=True)
-l_vw = df["volume_vwap"].iloc[-1]
+    fig_vwap = px.line(df["volume_vwap"])
+    fig_vwap.update_layout(showlegend=False)
+    fig_vwap.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    fig_vwap.update_yaxes(title="Volume Weighted Average Price",
+                          showticklabels=True, visible=True)
+    l_vw = df["volume_vwap"].iloc[-1]
 return l_vw, fig_vwap
 
 
@@ -976,12 +965,12 @@ l_vw, fig_vwap = vwap(df)
 
 @st.cache_resource
 def vpt(df):
-fig_vpt = px.bar(df["volume_vpt"])
-fig_vpt.update_layout(showlegend=False)
-fig_vpt.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-fig_vpt.update_yaxes(title="Volume Price Trend Index",
-                     showticklabels=True, visible=True)
-l_vp = df["volume_vpt"].iloc[-1]
+    fig_vpt = px.bar(df["volume_vpt"])
+    fig_vpt.update_layout(showlegend=False)
+    fig_vpt.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    fig_vpt.update_yaxes(title="Volume Price Trend Index",
+                         showticklabels=True, visible=True)
+    l_vp = df["volume_vpt"].iloc[-1]
 return l_vp, fig_vpt
 
 
@@ -990,39 +979,39 @@ l_vp, fig_vpt = vpt(df)
 
 @st.cache_resource
 def bb(df):
-df_bb1 = df.filter(
-    ["Close", "volatility_bbm", "volatility_bbh", "volatility_bbl"], axis=1)
-df_bb2 = df.filter(["volatility_bbw"], axis=1)
-df_bb_ind = df.filter(["volatility_bbhi", "volatility_bbli"], axis=1)
-l_bbp = df["volatility_bbp"].iloc[-1]
-fig_bb = px.line(df_bb1)
-fig_bb.update_layout(showlegend=False)
-fig_bb.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-fig_bb.update_yaxes(title="Bollingers Bands",
-                    showticklabels=True, visible=True)
-l_bbw = df["volatility_bbw"].iloc[-1]
-fig_bb2 = make_subplots(rows=2, cols=1, shared_xaxes=False,
-                        subplot_titles=(
-                            "Percentile", "Bandwidth / Squeeze [%]"),
-                        row_width=[0.35, 0.65])
-fig_bb2.add_trace(go.Scatter(
-    x=df.index, y=df["volatility_bbp"], name='Percentile', showlegend=False), row=1, col=1)
-fig_bb2.update_xaxes(visible=True, showticklabels=True)
-fig_bb2.add_trace(go.Scatter(
-    x=df.index, y=df['volatility_bbw'], name='"Bandwidth / Squeeze [%]', showlegend=False), row=2, col=1)
-# fig_bb3.add_trace(go.Bar(x=df.index, y = df_bb_ind))
-# fig_bb2.update_layout(height = 400, showlegend=False)
-# fig_bb2.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-# fig_bb2.update_yaxes(title="x, showticklabels=True, visible=True)
-# fig_bb3.update_layout(showlegend=False)
-# fig_bb3.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-# fig_bb3.update_yaxes(title="BB Percentile [%]", showticklabels=True, visible=True)
-# fig_bb_ind = px.bar(df_bb_ind)
-# fig_bb_ind.update_layout(height = 400, showlegend=False)
-# fig_bb_ind.update_xaxes(title='Timeline', showticklabels=True, visible=True)
-# fig_bb_ind.update_yaxes(title="BB Indicator", showticklabels=True, visible=True)
-l_bbhi = df["volatility_bbhi"].iloc[-1]
-l_bbli = df['volatility_bbli'].iloc[-1]
+    df_bb1 = df.filter(
+        ["Close", "volatility_bbm", "volatility_bbh", "volatility_bbl"], axis=1)
+    df_bb2 = df.filter(["volatility_bbw"], axis=1)
+    df_bb_ind = df.filter(["volatility_bbhi", "volatility_bbli"], axis=1)
+    l_bbp = df["volatility_bbp"].iloc[-1]
+    fig_bb = px.line(df_bb1)
+    fig_bb.update_layout(showlegend=False)
+    fig_bb.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    fig_bb.update_yaxes(title="Bollingers Bands",
+                        showticklabels=True, visible=True)
+    l_bbw = df["volatility_bbw"].iloc[-1]
+    fig_bb2 = make_subplots(rows=2, cols=1, shared_xaxes=False,
+                            subplot_titles=(
+                                "Percentile", "Bandwidth / Squeeze [%]"),
+                            row_width=[0.35, 0.65])
+    fig_bb2.add_trace(go.Scatter(
+        x=df.index, y=df["volatility_bbp"], name='Percentile', showlegend=False), row=1, col=1)
+    fig_bb2.update_xaxes(visible=True, showticklabels=True)
+    fig_bb2.add_trace(go.Scatter(
+        x=df.index, y=df['volatility_bbw'], name='"Bandwidth / Squeeze [%]', showlegend=False), row=2, col=1)
+    # fig_bb3.add_trace(go.Bar(x=df.index, y = df_bb_ind))
+    # fig_bb2.update_layout(height = 400, showlegend=False)
+    # fig_bb2.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    # fig_bb2.update_yaxes(title="x, showticklabels=True, visible=True)
+    # fig_bb3.update_layout(showlegend=False)
+    # fig_bb3.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    # fig_bb3.update_yaxes(title="BB Percentile [%]", showticklabels=True, visible=True)
+    # fig_bb_ind = px.bar(df_bb_ind)
+    # fig_bb_ind.update_layout(height = 400, showlegend=False)
+    # fig_bb_ind.update_xaxes(title='Timeline', showticklabels=True, visible=True)
+    # fig_bb_ind.update_yaxes(title="BB Indicator", showticklabels=True, visible=True)
+    l_bbhi = df["volatility_bbhi"].iloc[-1]
+    l_bbli = df['volatility_bbli'].iloc[-1]
 return df_bb1, df_bb2, df_bb_ind, l_bbp, fig_bb, fig_bb2, l_bbhi, l_bbli, l_bbw
 
 
@@ -1032,29 +1021,29 @@ df)
 
 @st.cache_resource
 def donc(df):
-fig_dcw = px.line(df["volatility_dcw"])
-fig_dcw.update_yaxes(title='Donchian Squeeze or Bandwidth',
-                     showticklabels=True, visible=True)
-fig_dcw.update_xaxes(title=' ', showticklabels=True, visible=True)
-fig_dcp = px.line(df["volatility_dcp"])
-fig_dcp.update_yaxes(title='Donchian Channel Percentile',
-                     showticklabels=True, visible=True)
-fig_dcp.update_xaxes(title=' ', showticklabels=True, visible=True)
-df_dc = df.filter(
-    ["volatility_dcl", "volatility_dch", "volatility_dcm"], axis=1)
-fig_dc = px.line(df_dc)
-fig_dc.update_yaxes(
-    title=f'Donchian Channels for {stock}',
-    showticklabels=True, visible=True)
-fig_dc.update_xaxes(title=' ', showticklabels=True, visible=True)
-fig_dc.update_layout(showlegend=False)
-fig_dcw.update_layout(height=250, showlegend=False)
-fig_dcp.update_layout(height=250, showlegend=False)
-l_dch = df["volatility_dch"].iloc[-1]
-l_dcl = df["volatility_dcl"].iloc[-1]
-l_dcm = df["volatility_dcm"].iloc[-1]
-l_dcw = df["volatility_dcw"].iloc[-1]
-l_dcp = df["volatility_dcp"].iloc[-1]
+    fig_dcw = px.line(df["volatility_dcw"])
+    fig_dcw.update_yaxes(title='Donchian Squeeze or Bandwidth',
+                         showticklabels=True, visible=True)
+    fig_dcw.update_xaxes(title=' ', showticklabels=True, visible=True)
+    fig_dcp = px.line(df["volatility_dcp"])
+    fig_dcp.update_yaxes(title='Donchian Channel Percentile',
+                         showticklabels=True, visible=True)
+    fig_dcp.update_xaxes(title=' ', showticklabels=True, visible=True)
+    df_dc = df.filter(
+        ["volatility_dcl", "volatility_dch", "volatility_dcm"], axis=1)
+    fig_dc = px.line(df_dc)
+    fig_dc.update_yaxes(
+        title=f'Donchian Channels for {stock}',
+        showticklabels=True, visible=True)
+    fig_dc.update_xaxes(title=' ', showticklabels=True, visible=True)
+    fig_dc.update_layout(showlegend=False)
+    fig_dcw.update_layout(height=250, showlegend=False)
+    fig_dcp.update_layout(height=250, showlegend=False)
+    l_dch = df["volatility_dch"].iloc[-1]
+    l_dcl = df["volatility_dcl"].iloc[-1]
+    l_dcm = df["volatility_dcm"].iloc[-1]
+    l_dcw = df["volatility_dcw"].iloc[-1]
+    l_dcp = df["volatility_dcp"].iloc[-1]
 return df_dc, fig_dc, fig_dcw, fig_dcp, l_dch, l_dcl, l_dcm, l_dcw, l_dcp
 
 
@@ -1063,31 +1052,31 @@ df_dc, fig_dc, fig_dcw, fig_dcp, l_dch, l_dcl, l_dcm, l_dcw, l_dcp = donc(df)
 
 @st.cache_resource
 def kc(df):
-df_k = df.filter(['Close', "volatility_kcc",
-                 "volatility_kch", "volatility_kcl"], axis=1)
-#    df_k = df_k.dropna()
-df_k_ind = df.filter(["volatility_kchi", "volatility_kcli"], axis=1)
-#    df_k_ind = df_k_ind.dropna()
-fig_k = px.line(df_k)
-fig_k.update_yaxes(title='Keltner Channels',
-                   showticklabels=True, visible=True)
-fig_k2 = px.area(df["volatility_kcw"])
-fig_k3 = px.area(df["volatility_kcp"])
-fig_k2.update_yaxes(title='Keltner Bandwidth',
-                    showticklabels=True, visible=True)
-fig_k3.update_yaxes(title='Keltner Percentile',
-                    showticklabels=True, visible=True)
-l_kcp = df["volatility_kcp"].iloc[-1]
-l_kcw = df["volatility_kcw"].iloc[-1]
-l_kchi = df["volatility_kchi"].iloc[-1]
-l_kcli = df['volatility_kcli'].iloc[-1]
-fig_k.update_layout(showlegend=False)
-fig_k2.update_layout(showlegend=False)
-fig_k3.update_layout(showlegend=False)
-fig_k_ind = px.bar(df_k_ind)
-fig_k_ind.update_yaxes(title='Keltner Bandwidth & Hi-Lo',
+    df_k = df.filter(['Close', "volatility_kcc",
+                     "volatility_kch", "volatility_kcl"], axis=1)
+    #    df_k = df_k.dropna()
+    df_k_ind = df.filter(["volatility_kchi", "volatility_kcli"], axis=1)
+    #    df_k_ind = df_k_ind.dropna()
+    fig_k = px.line(df_k)
+    fig_k.update_yaxes(title='Keltner Channels',
                        showticklabels=True, visible=True)
-fig_k_ind.update_layout(showlegend=False)
+    fig_k2 = px.area(df["volatility_kcw"])
+    fig_k3 = px.area(df["volatility_kcp"])
+    fig_k2.update_yaxes(title='Keltner Bandwidth',
+                        showticklabels=True, visible=True)
+    fig_k3.update_yaxes(title='Keltner Percentile',
+                        showticklabels=True, visible=True)
+    l_kcp = df["volatility_kcp"].iloc[-1]
+    l_kcw = df["volatility_kcw"].iloc[-1]
+    l_kchi = df["volatility_kchi"].iloc[-1]
+    l_kcli = df['volatility_kcli'].iloc[-1]
+    fig_k.update_layout(showlegend=False)
+    fig_k2.update_layout(showlegend=False)
+    fig_k3.update_layout(showlegend=False)
+    fig_k_ind = px.bar(df_k_ind)
+    fig_k_ind.update_yaxes(title='Keltner Bandwidth & Hi-Lo',
+                           showticklabels=True, visible=True)
+    fig_k_ind.update_layout(showlegend=False)
 return df_k, df_k_ind, fig_k, fig_k2, fig_k_ind, fig_k3, l_kcp, l_kcw, l_kchi, l_kcli
 
 
