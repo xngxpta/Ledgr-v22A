@@ -2244,8 +2244,6 @@ st.write("  --------------  ")
         #st.write("  --------  ")
             # st.subheader("Institutional Risk Profile")
 st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
-st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
-
 st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
 st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
 
