@@ -1977,274 +1977,273 @@ foreshadow a bullish price reversal.""")
         st.plotly_chart(fig_vwap, use_container_width=True)
         st.info("VWAP, or Volume-Weighted Average Price, is a technical indicator used in intraday charts to determine the average price of a security based on volume and price. It's essentially a benchmark for determining if a stock is undervalued or overvalued during a trading day.")
 st.write("  --------------  ")
-st.stop()
-with st.container(border=True):
-    sc1, sc2 = st.columns([2, 1])
-    with sc1:
-        st.subheader("Business Description")
-        st.info(dfi.at['longBusinessSummary', 'Details'])
-        try:
-            floatShares = dfi.at['floatShares', 'Details']  # 7A_C
-            sharesOutstanding = dfi.at['sharesOutstanding', 'Details']
-            impliedSharesOutstanding = dfi.at['impliedSharesOutstanding',
-                                              'Details']
-            fs1, fs2 = st.columns(2)
-            with fs1:
-                st.write("Floating Shares", floatShares)
-            with fs2:
-                st.write("Outstanding Shares", sharesOutstanding)
-            fig_shares = px.pie(values=[floatShares, sharesOutstanding,
-                                        impliedSharesOutstanding],
-                                names=['Floating', 'Outstanding', 'Implied'],
-                                hole=0.45)
-            fig_shares.update_layout(
-                title='Shares & Stocks Issued', title_x=0.33,
-                showlegend=False)
-            st.plotly_chart(fig_shares, use_container_width=True)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            heldPercentInsiders = dfi.at['heldPercentInsiders', 'Details']
-            heldPercentInstitutions = dfi.at['heldPercentInstitutions',
-                                             'Details']
-            fig_holdings = px.pie(
-                values=[heldPercentInsiders, heldPercentInstitutions],
-                hole=0.45)
-            fig_holdings.update_layout(
-                title='Stakeholding Pattern', title_x=0.33,
-                showlegend=True)
-            st.plotly_chart(fig_holdings, use_container_width=True)
-            hx1, hx2 = st.columns(2)
-            with hx1:
-                st.write("Promoters", heldPercentInsiders)
-            with hx2:
-                st.write("Institutions", heldPercentInstitutions)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            overallRisk = dfi.at['overallRisk', 'Details']
-            st.write("Overall Institutional Risk", overallRisk)
-            auditRisk = dfi.at['auditRisk', 'Details']  # 6c
-            #           st.write("Audit Risk", auditRisk)
-            boardRisk = dfi.at['boardRisk', "Details"]
-            #            st.write("Board Risk", boardRisk)
-            compensationRisk = dfi.at['compensationRisk', 'Details']
-            shareHolderRightsRisk = dfi.at['shareHolderRightsRisk', 'Details']
-            df_risk = pd.DataFrame({'Risk Types': ["Audit Risk", "Board Risk",
-                                                   "Stakeholders' Rights Risk",
-                                                   "Compensation Risk"],
-                                    'Risk Levels': [auditRisk, boardRisk,
-                                                    shareHolderRightsRisk,
-                                                    compensationRisk]})
-            figure_risk = px.bar(
-                df_risk["Risk Levels"], labels=df_risk['Risk Types'],
-                color=df_risk['Risk Types'])
-            figure_risk.update_layout(
-                height=300, title='Institutional Risk Map',  title_x=0.25,
-                showlegend=False)
-
-            figure_risk.update_xaxes(showticklabels=True, visible=True)
-            figure_risk.update_yaxes(showticklabels=True, visible=True)
+#with st.container(border=True):
+#    sc1, sc2 = st.columns([2, 1])
+#    with sc1:
+#        st.subheader("Business Description")
+#        st.info(dfi.at['longBusinessSummary', 'Details'])
+#        try:
+#            floatShares = dfi.at['floatShares', 'Details']  # 7A_C
+#            sharesOutstanding = dfi.at['sharesOutstanding', 'Details']
+#            impliedSharesOutstanding = dfi.at['impliedSharesOutstanding',
+#                                              'Details']
+#            fs1, fs2 = st.columns(2)
+#            with fs1:
+#                st.write("Floating Shares", floatShares)
+#            with fs2:
+#                st.write("Outstanding Shares", sharesOutstanding)
+#            fig_shares = px.pie(values=[floatShares, sharesOutstanding,
+#                                        impliedSharesOutstanding],
+#                                names=['Floating', 'Outstanding', 'Implied'],
+#                                hole=0.45)
+#            fig_shares.update_layout(
+#                title='Shares & Stocks Issued', title_x=0.33,
+#                showlegend=False)
+#            st.plotly_chart(fig_shares, use_container_width=True)
+#        except Exception:
+#            st.write("Data Unreported")
+#        try:
+#            heldPercentInsiders = dfi.at['heldPercentInsiders', 'Details']
+#            heldPercentInstitutions = dfi.at['heldPercentInstitutions',
+#                                             'Details']
+#            fig_holdings = px.pie(
+#                values=[heldPercentInsiders, heldPercentInstitutions],
+#                hole=0.45)
+#            fig_holdings.update_layout(
+#                title='Stakeholding Pattern', title_x=0.33,
+#                showlegend=True)
+#            st.plotly_chart(fig_holdings, use_container_width=True)
+#            hx1, hx2 = st.columns(2)
+#            with hx1:
+#               st.write("Promoters", heldPercentInsiders)
+#            with hx2:
+#                st.write("Institutions", heldPercentInstitutions)
+#        except Exception:
+#            st.write("Data Unreported")
+#        try:
+#           overallRisk = dfi.at['overallRisk', 'Details']
+#            st.write("Overall Institutional Risk", overallRisk)
+#            auditRisk = dfi.at['auditRisk', 'Details']  # 6c
+#            #           st.write("Audit Risk", auditRisk)
+#            boardRisk = dfi.at['boardRisk', "Details"]
+#            #            st.write("Board Risk", boardRisk)
+#            compensationRisk = dfi.at['compensationRisk', 'Details']
+#            shareHolderRightsRisk = dfi.at['shareHolderRightsRisk', 'Details']
+#            df_risk = pd.DataFrame({'Risk Types': ["Audit Risk", "Board Risk",
+#                                                   "Stakeholders' Rights Risk",
+#                                                   "Compensation Risk"],
+#                                    'Risk Levels': [auditRisk, boardRisk,
+ #                                                   shareHolderRightsRisk,
+  #                                                  compensationRisk]})
+   #         figure_risk = px.bar(
+  #              df_risk["Risk Levels"], labels=df_risk['Risk Types'],
+  #              color=df_risk['Risk Types'])
+  #          figure_risk.update_layout(
+  #              height=300, title='Institutional Risk Map',  title_x=0.25,
+  #              showlegend=False)##
+#
+ #           figure_risk.update_xaxes(showticklabels=True, visible=True)
+ #           figure_risk.update_yaxes(showticklabels=True, visible=True)
             #          st.write("Compensation Risk", compensationRisk)
             #      st.write("Shareholders' Rights Risk", shareHolderRightsRisk)
-            st.plotly_chart(figure_risk, use_container_width=True)
-        except Exception:
-            st.write("Data Unreported")
-        st.write("  ----------  ")
-    try:
-        with st.expander("Find Details on Company Officers here..."):
-            st.dataframe(dfi.at['companyOfficers', 'Details'])
-    except Exception:
-        st.write("Data Unreported")
-    with sc2:
-        st.subheader("Volume Metrics")
-        try:
-            averageVolume = dfi.at['averageVolume', 'Details']  # 6a
-            st.write("Mean Volume - ", averageVolume)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            regularMarketVolume = dfi.at['regularMarketVolume', 'Details']
-            st.write("Regular Market Volume - ", regularMarketVolume)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            averageVolume10days = dfi.at['averageVolume10days', 'Details']
-            st.write('10Day Volume Avg - ', averageVolume10days)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            averageDailyVolume10Day = dfi.at['averageDailyVolume10Day',
-                                             'Details']
-            st.write('10D Daily Volume - ', averageDailyVolume10Day)
-        except Exception:
-            st.write("Data Unreported")
-        st.write("  --------  ")
-        ba1, ba2 = st.columns(2)
-        with ba1:
-            try:
-                bid = dfi.at['bid', 'Details']  # 6b
-                st.write("Bids - ", bid)
-                bidsize = dfi.at['bidSize', 'Details']
-                st.write("Bid Sizes - ", bidsize)
-            except Exception:
-                st.write("Data Unreported")
-        with ba2:
-            try:
-                ask = dfi.at['ask', 'Details']
-                st.write("Asks - ", ask)
-                asksize = dfi.at['askSize', 'Details']
-                st.write("Ask Sizes - ", asksize)
-            except Exception:
-                st.write("Data Unreported")
-        st.write("  ----------  ")
-        st.subheader("Financial Insights")
-        try:
-            totalCash = dfi.at['totalCash', 'Details']
-            st.write("Total Cash", totalCash)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            totalCashPerShare = dfi.at['totalCashPerShare', 'Details']
-            st.write("Total Cash/Share", totalCashPerShare)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            totalDebt = dfi.at['totalDebt', 'Details']
-            st.write("Total Debt", totalDebt)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            totalRevenue = dfi.at['totalRevenue', 'Details']
-            st.write("Total Revenue", totalRevenue)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            revenuePerShare = dfi.at['revenuePerShare', 'Details']
-            st.write("Revenue/Share", revenuePerShare)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            returnOnAssets = dfi.at['returnOnAssets', 'Details']
-            st.write("Return on Assets", returnOnAssets)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            returnOnEquity = dfi.at['returnOnEquity', 'Details']
-            st.write("Return on Equity", returnOnEquity)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            pmargins = dfi.at['profitMargins', 'Details']
-            st.write("Profit Margins", pmargins)  # 2b
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            gmargins = dfi.at['grossMargins', 'Details']
-            st.write("Gross Margins", gmargins)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            ebitdaMargins = dfi.at['ebitdaMargins', 'Details']
-            st.write("EBITDA Margins", ebitdaMargins)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            operatingMargins = dfi.at['operatingMargins', 'Details']
-            st.write("Operating Margins", operatingMargins)
-        except Exception:
-            st.write("Data Unreported")
+ #           st.plotly_chart(figure_risk, use_container_width=True)
+ #       except Exception:
+ #           st.write("Data Unreported")
+ #       st.write("  ----------  ")
+  ##  try:
+   #     with st.expander("Find Details on Company Officers here..."):
+   #         st.dataframe(dfi.at['companyOfficers', 'Details'])
+   # except Exception:
+   #     st.write("Data Unreported")
+   # with sc2:
+   #     st.subheader("Volume Metrics")
+   #     try:
+   #         averageVolume = dfi.at['averageVolume', 'Details']  # 6a
+   #         st.write("Mean Volume - ", averageVolume)
+   #     except Exception:
+   #         st.write("Data Unreported")
+   #     try:
+   #         regularMarketVolume = dfi.at['regularMarketVolume', 'Details']
+   #         st.write("Regular Market Volume - ", regularMarketVolume)
+   #     except Exception:
+   #         st.write("Data Unreported")
+   #     try:
+   #         averageVolume10days = dfi.at['averageVolume10days', 'Details']
+   #         st.write('10Day Volume Avg - ', averageVolume10days)
+   #     except Exception:
+   #         st.write("Data Unreported")
+   #     try:
+   #         averageDailyVolume10Day = dfi.at['averageDailyVolume10Day',
+   #                                          'Details']
+   #         st.write('10D Daily Volume - ', averageDailyVolume10Day)
+   #     except Exception:
+   #         st.write("Data Unreported")
+   #     st.write("  --------  ")
+   #     ba1, ba2 = st.columns(2)
+   #     with ba1:
+   #         try:
+   #            bid = dfi.at['bid', 'Details']  # 6b
+   #             st.write("Bids - ", bid)
+   #             bidsize = dfi.at['bidSize', 'Details']
+   #             st.write("Bid Sizes - ", bidsize)
+   #         except Exception:
+   #             st.write("Data Unreported")
+   #     with ba2:
+   #         try:
+    #            ask = dfi.at['ask', 'Details']
+    #            st.write("Asks - ", ask)
+    #            asksize = dfi.at['askSize', 'Details']
+    #            st.write("Ask Sizes - ", asksize)
+    #        except Exception:
+    #            st.write("Data Unreported")
+    #    st.write("  ----------  ")
+    #    st.subheader("Financial Insights")
+    #    try:
+    #        totalCash = dfi.at['totalCash', 'Details']
+    #        st.write("Total Cash", totalCash)
+    #    except Exception:
+    #        st.write("Data Unreported")
+    #    try:
+    #        totalCashPerShare = dfi.at['totalCashPerShare', 'Details']
+    #        st.write("Total Cash/Share", totalCashPerShare)
+    #    except Exception:
+    #        st.write("Data Unreported")
+    #    try:
+     #       totalDebt = dfi.at['totalDebt', 'Details']
+     #       st.write("Total Debt", totalDebt)
+     #   except Exception:
+     #       st.write("Data Unreported")
+      #  try:
+      #      totalRevenue = dfi.at['totalRevenue', 'Details']
+      #      st.write("Total Revenue", totalRevenue)
+      #  except Exception:
+      #      st.write("Data Unreported")
+      #  try:
+      #      revenuePerShare = dfi.at['revenuePerShare', 'Details']
+      #      st.write("Revenue/Share", revenuePerShare)
+      #  except Exception:
+      #      st.write("Data Unreported")
+      #  try:
+      #      returnOnAssets = dfi.at['returnOnAssets', 'Details']
+      #      st.write("Return on Assets", returnOnAssets)
+      #  except Exception:
+      #      st.write("Data Unreported")
+      #  try:
+      #      returnOnEquity = dfi.at['returnOnEquity', 'Details']
+      #      st.write("Return on Equity", returnOnEquity)
+      #  except Exception:
+       #     st.write("Data Unreported")
+        #try:
+         #   pmargins = dfi.at['profitMargins', 'Details']
+          #  st.write("Profit Margins", pmargins)  # 2b
+       # except Exception:
+        #    st.write("Data Unreported")
+       # try:
+        #    gmargins = dfi.at['grossMargins', 'Details']
+         #   st.write("Gross Margins", gmargins)
+        #except Exception:
+         #   st.write("Data Unreported")
+        #try:
+         #   ebitdaMargins = dfi.at['ebitdaMargins', 'Details']
+          #  st.write("EBITDA Margins", ebitdaMargins)
+        #except Exception:
+         #   st.write("Data Unreported")
+        #try:
+         #   operatingMargins = dfi.at['operatingMargins', 'Details']
+          #  st.write("Operating Margins", operatingMargins)
+        #except Exception:
+         #   st.write("Data Unreported")
         # st.write(dfi.at['TrailingPegRatio', 'Details'])
-        try:
-            grossProfits = dfi.at['grossProfits', 'Details']
-            st.write("Gross Profits", grossProfits)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            earningsGrowth = dfi.at['earningsGrowth', 'Details']
-            st.write("Earnings Growth", earningsGrowth)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            earningsQuarterlyGrowth = dfi.at['earningsQuarterlyGrowth', 'Details']
-            st.write("Earnings Growth Qtrly", earningsQuarterlyGrowth)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            revenueGrowth = dfi.at['revenueGrowth', 'Details']
-            st.write('Revenue Growth', revenueGrowth)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            payoutRatio = dfi.at['payoutRatio', 'Details']  # 5b
-            st.write('Payout Ratio - ', payoutRatio)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            beta = dfi.at['beta', 'Details']
-            st.write("Beta - ", beta)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            trailingPE = dfi.at['trailingPE', 'Details']
-            st.write("Trailing PE", trailingPE)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            forwardPE = dfi.at['forwardPE', 'Details']
-            st.write("Forward PE", forwardPE)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            bookValue = dfi.at['bookValue', 'Details']
-            st.write("Book Value", bookValue)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            priceToBook = dfi.at['priceToBook', 'Details']
-            st.write("Price-to-Book Ratio", priceToBook)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            netIncomeToCommon = dfi.at['netIncomeToCommon', 'Details']
-            st.write("Net Income to Common", netIncomeToCommon)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            reco_mean = dfi.at['recommendationMean', 'Details']
-            st.write('Recommended Mean - ', reco_mean)
-        except Exception:
-            st.write("Data Unreported")
-        try:
-            reco_key = dfi.at['recommendationKey', 'Details']
-            st.write('Market Recommendation - ', reco_key)
-        except Exception:
-            st.write("Data Unreported")
-        ep1, ep2 = st.columns(2)
-        with ep1:
-            try:
-                trailingEps = dfi.at['trailingEps', 'Details']
-                st.write("TrlgEPS", trailingEps)
-            except Exception:
-                st.write("Data Unreported")
-            try:
-                forwardEps = dfi.at['forwardEps', 'Details']
-                st.write("FwdEPS", forwardEps)
-            except Exception:
-                st.write("Data Unreported")
-        with ep2:
-            try:
-                enterpriseToRevenue = dfi.at['enterpriseToRevenue', 'Details']
-                st.write("EV-Rev", enterpriseToRevenue)
+        #try:
+         #   grossProfits = dfi.at['grossProfits', 'Details']
+          #  st.write("Gross Profits", grossProfits)
+       # except Exception:
+        #    st.write("Data Unreported")
+       # try:
+        #    earningsGrowth = dfi.at['earningsGrowth', 'Details']
+         #   st.write("Earnings Growth", earningsGrowth)
+        #except Exception:
+        #    st.write("Data Unreported")
+        #try:
+         #   earningsQuarterlyGrowth = dfi.at['earningsQuarterlyGrowth', 'Details']
+         #   st.write("Earnings Growth Qtrly", earningsQuarterlyGrowth)
+        #except Exception:
+         #   st.write("Data Unreported")
+        #try:
+         #   revenueGrowth = dfi.at['revenueGrowth', 'Details']
+          #  st.write('Revenue Growth', revenueGrowth)
+        #except Exception:
+         #   st.write("Data Unreported")
+        #try:
+         #   payoutRatio = dfi.at['payoutRatio', 'Details']  # 5b
+         #   st.write('Payout Ratio - ', payoutRatio)
+        #except Exception:
+         #   st.write("Data Unreported")
+       # try:
+        #    beta = dfi.at['beta', 'Details']
+        #    st.write("Beta - ", beta)
+       # except Exception:
+        #    st.write("Data Unreported")
+       # try:
+        #    trailingPE = dfi.at['trailingPE', 'Details']
+         #   st.write("Trailing PE", trailingPE)
+       # except Exception:
+        #    st.write("Data Unreported")
+        #try:
+         #   forwardPE = dfi.at['forwardPE', 'Details']
+          #  st.write("Forward PE", forwardPE)
+        #except Exception:
+         #   st.write("Data Unreported")
+        #try:
+         #   bookValue = dfi.at['bookValue', 'Details']
+         #   st.write("Book Value", bookValue)
+        #except Exception:
+         #   st.write("Data Unreported")
+        # try:
+         #   priceToBook = dfi.at['priceToBook', 'Details']
+         #   st.write("Price-to-Book Ratio", priceToBook)
+        # except Exception:
+         #   st.write("Data Unreported")
+       # try:
+        #    netIncomeToCommon = dfi.at['netIncomeToCommon', 'Details']
+        #    st.write("Net Income to Common", netIncomeToCommon)
+       # except Exception:
+       #     st.write("Data Unreported")
+       # try:
+        #    reco_mean = dfi.at['recommendationMean', 'Details']
+         #   st.write('Recommended Mean - ', reco_mean)
+       # except Exception:
+        #    st.write("Data Unreported")
+       # try:
+        #    reco_key = dfi.at['recommendationKey', 'Details']
+        #    st.write('Market Recommendation - ', reco_key)
+       # except Exception:
+       #     st.write("Data Unreported")
+       # ep1, ep2 = st.columns(2)
+       # with ep1:
+        #    try:
+         #       trailingEps = dfi.at['trailingEps', 'Details']
+          #      st.write("TrlgEPS", trailingEps)
+          #  except Exception:
+           #     st.write("Data Unreported")
+            # try:
+              #  forwardEps = dfi.at['forwardEps', 'Details']
+               # st.write("FwdEPS", forwardEps)
+            #except Exception:
+              #   st.write("Data Unreported")
+       # with ep2:
+        #    try:
+         #       enterpriseToRevenue = dfi.at['enterpriseToRevenue', 'Details']
+          #      st.write("EV-Rev", enterpriseToRevenue)
 
-            except Exception:
-                st.write("Data Unreported")
-            try:
-                pegRatio = dfi.at['pegRatio', 'Details']
-                st.write("PEG Ratio", pegRatio)
-            except Exception:
-                st.write("Data Unreported")
-        st.write("  --------  ")
+          #  except Exception:
+          #      st.write("Data Unreported")
+          #  try:
+          #      pegRatio = dfi.at['pegRatio', 'Details']
+           #     st.write("PEG Ratio", pegRatio)
+           # except Exception:
+           #     st.write("Data Unreported")
+        #st.write("  --------  ")
             # st.subheader("Institutional Risk Profile")
 
 st.write("  --------------  ")
