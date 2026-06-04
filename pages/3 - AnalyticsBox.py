@@ -2247,12 +2247,14 @@ st.write("  --------------  ")
            #     st.write("Data Unreported")
         #st.write("  --------  ")
             # st.subheader("Institutional Risk Profile")
-st.warning("More info and insights on the Pro version which can be Accessed for a day via the Link buttons as the one below, or in the sidebar.")
-st.link_button("Access Ledgr/Day!", url_stripe, type="primary",
-               disabled=False, use_container_width=True)
-st.success("Become a Patron and support the project for a minimal monthly fee!")
-st.link_button("Become a Patron!", url_stripe_2, type="primary",
-               disabled=False, use_container_width=True)
+st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+
+st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+
+st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+
 st.write("  --------------  ")
 column1, column2, column3, column4, column5 = st.columns([1, 1, 1, 2, 1])
 with column1:
