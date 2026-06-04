@@ -28,9 +28,9 @@ st.set_page_config(page_title='Ledgr | Analytics', layout="wide",
 url_stripe = "https://book.stripe.com/9B6bJ3gWS87G97b80q0480f"
 url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
 st.sidebar.link_button("Access Ledgr for a Day!", url_stripe, type="primary",
-                       disabled=False, width='content')
+                       disabled=False, use_container_width=True)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                        disabled=False, width='content')
+                        disabled=False, use_container_width=True)
 pathtkr = f"{direc}/pages/appdata/tickerlist_y.csv"
 # Icons and Links ###########################
 ytube = f'{direc}/pages/appdata/imgs/ytube.svg'
@@ -134,8 +134,9 @@ volulist = pd.Series(["Money Flow Index (MFI)", "Accumulation/Distribution Index
 
 figOHLC = make_subplots(rows=2, cols=1, shared_xaxes=True,
                         row_width=[0.3, 0.7])
-figOHLC.add_trace(go.Ohlc(x=df.index, open=df["Open"], high=df["High"],
-                          low=df["Low"], close=df["Close"]), row=1, col=1)
+figOHLC.add_trace(go.Ohlc(
+    x=df.index, open=df["Open"], high=df["High"],
+    low=df["Low"], close=df["Close"]), row=1, col=1)
 figOHLC.update_xaxes(visible=True, showticklabels=True)
 figOHLC.add_trace(go.Bar(
     x=df.index, y=df['Volume'], name='Volume Traded', showlegend=False),
@@ -236,19 +237,15 @@ with st.container(border=True):
     with bn1:
         st.metric("Asset in Focus", f"{stock}")
     with b52:
-        # st.subheader("52 Week Range")
         st.metric("52-Week-High", round(dh52))
         st.metric("52-Week-Low", round(dl52))
     with b25:
-        # st.subheader("25 Week Range")
         st.metric("25-Week-High", round(dh25))
         st.metric("25-Week-Low", round(dl25))
     with bn2:
-        # st.subheader("14 Day Range")
         st.metric("14-Day-High", round(dh14))
         st.metric("14-Day-Low", round(dl14))
     with bn3:
-        # st.subheader("3 D Range")
         st.metric("3-Day-High", round(dh3))
         st.metric("3-Day-Low", round(dl3))
     with bn4:
@@ -292,8 +289,8 @@ def adx(df):
     df_adx = df.filter(["trend_adx"], axis=1)
     df_adx = df_adx.iloc[14:]
     adx_last = df_adx.iloc[-1].values
-    df_adx_signal = df.filter(
-        ["trend_adx", "trend_adx_pos", "trend_adx_neg"], axis=1)
+    df_adx_signal = df.filter(["trend_adx", "trend_adx_pos", "trend_adx_neg"],
+                              axis=1)
     df_adx_signal = df_adx_signal.iloc[14:]
     fig_adx = px.line(df_adx)
     fig_adx.update_layout(showlegend=False)
@@ -301,8 +298,7 @@ def adx(df):
     fig_adx.update_yaxes(title='ADX', visible=True, showticklabels=True)
     fig_adx_sig = px.line(df_adx_signal)
     fig_adx_sig.update_xaxes(visible=True, showticklabels=True)
-    fig_adx_sig.update_yaxes(
-        title='ADX Signal', visible=True, showticklabels=True)
+    fig_adx_sig.update_yaxes(title='ADX Signal', visible=True, showticklabels=True)
     fig_adx_sig.update_layout(showlegend=False)
 
     return adx_last, fig_adx, fig_adx_sig
@@ -321,7 +317,6 @@ def trix(df):
     l_trix = df["trend_trix"].iloc[-1]
     l_trix2 = df["trend_trix"].iloc[-2]
     slope_trix = l_trix - l_trix2
-    # slope_trix2 = l_trix + l_trix2
     slope_trix = slope_trix/l_trix
     return l_trix, fig_trix, slope_trix
 
@@ -407,11 +402,12 @@ def rsif(df):
     # df_rsi = df_rsi.iloc[8:]
     fig_rsi = make_subplots(rows=2, cols=1, shared_xaxes=True,
                             row_width=[0.4, 0.6])
-    fig_rsi.add_trace(go.Candlestick(x=df.index,
-                                     open=df["Open"], high=df["High"],
-                                     low=df["Low"], close=df["Close"],
-                                     increasing_line_color='cyan',
-                                     decreasing_line_color='gray'),
+    fig_rsi.add_trace(go.Candlestick(
+        x=df.index,
+        open=df["Open"], high=df["High"],
+        low=df["Low"], close=df["Close"],
+        increasing_line_color='cyan',
+        decreasing_line_color='gray'),
                       row=1, col=1)
     fig_rsi.add_trace(go.Scatter(x=df.index,
                                  y=df['momentum_rsi'], name='RSI 14',
