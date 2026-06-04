@@ -338,14 +338,14 @@ def trix(df):
             y=df['trend_trix'], 
             mode='lines', 
             line=dict(color='purple', width=2), 
-            name='RSI'
+            name='TRIX'
         ),
         row=2, col=1
     )
 
 # 6. Add Overbought (70) and Oversold (30) reference lines to the Oscillator
-    fig_trix.add_hline(y=70, line_dash="dash", line_color="red", row=2, col=1)
-    fig_trix.add_hline(y=30, line_dash="dash", line_color="green", row=2, col=1)
+    # fig_trix.add_hline(y=70, line_dash="dash", line_color="red", row=2, col=1)
+# fig_trix.add_hline(y=30, line_dash="dash", line_color="green", row=2, col=1)
 
     # 7. Update layout and styling
     fig_trix.update_layout(
@@ -785,7 +785,7 @@ fig_pvo, fig_pvo_signal = pvo(df)
 @st.cache_resource
 def atr(df):
     df_atr = df["volatility_atr"]
-    fig_atr = make_subplots(rows=2, cols=1, shared_xaxes=True)
+    fig_atr = make_subplots(rows=2, cols=1, shared_xaxes=False)
     fig_atr.add_trace(go.Candlestick(x=df.index,
                                      open=df["Open"], high=df["High"],
                                      low=df["Low"], close=df["Close"],
@@ -798,10 +798,19 @@ def atr(df):
     fig_atr.update_layout(title=f'Average true range for {stock}')
     fig_atr.update_layout(showlegend=False)
     fig_atr.update_xaxes(title='Timeline', visible=True, showticklabels=True)
-    fig_ui = px.bar(df['volatility_ui'])
+    df_ui = df['volatility_ui']
+    fig_ui = make_subplots(rows=2, cols=1, shared_xaxes=False)
+    fig_ui.add_trace(go.Candlestick(x=df.index,
+                                     open=df["Open"], high=df["High"],
+                                     low=df["Low"], close=df["Close"],
+                                     name="OHLC - Price Plot",
+                                     increasing_line_color='cyan',
+                                     decreasing_line_color='gray'), row=1, col=1)
     fig_ui.update_xaxes(
         title='Timeline', visible=True, showticklabels=True)
-    fig_ui.update_yaxes(title='ATR & Ulcer Index',
+    fig_ui.add_trace(go.Scatter(x=df.index, y=df_ui, name='Ulcer Index',
+                                 showlegend=False), row=2, col=1)
+    fig_ui.update_yaxes(title='Ulcer Index',
                         visible=True, showticklabels=True)
     fig_ui.update_layout(height=400, showlegend=False)
     l_ui = df['volatility_ui'].iloc[-1]
