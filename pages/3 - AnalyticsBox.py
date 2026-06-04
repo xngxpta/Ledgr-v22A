@@ -805,7 +805,7 @@ def atr(df):
 @st.cache_resource
 def ui(df):
     df_ui = df['volatility_ui']
-    fig_ui = make_subplots(rows=2, cols=1, shared_xaxes=False)
+    fig_ui = make_subplots(rows=2, cols=1, shared_xaxes=True)
     fig_ui.add_trace(go.Candlestick(x=df.index,
                                      open=df["Open"], high=df["High"],
                                      low=df["Low"], close=df["Close"],
@@ -813,13 +813,14 @@ def ui(df):
                                      increasing_line_color='cyan',
                                      decreasing_line_color='gray'), row=1, col=1)
     fig_ui.update_xaxes(
-        title='Timeline', visible=True, showticklabels=True)
+        title='Timeline', visible=False, showticklabels=False)
     fig_ui.add_trace(go.Scatter(x=df.index, y=df_ui, name='Ulcer Index',
                                  showlegend=False), row=2, col=1)
+    fig_ui.update_layout(xaxis_rangeslider_visible=False)
+
     fig_ui.update_yaxes(title='Ulcer Index',
                         visible=True, showticklabels=True)
     fig_ui.update_layout(height=400, showlegend=False)
-    fig_ui.update_layout(xaxis_rangeslider_visible=False)
     l_ui = df['volatility_ui'].iloc[-1]
     return l_ui, fig_ui
 
