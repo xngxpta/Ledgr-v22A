@@ -798,6 +798,12 @@ def atr(df):
     fig_atr.update_layout(title=f'Average true range for {stock}')
     fig_atr.update_layout(showlegend=False)
     fig_atr.update_xaxes(title='Timeline', visible=True, showticklabels=True)
+    l_atr = df["volatility_atr"].iloc[-1]
+
+    return l_atr, fig_atr 
+
+@st.cache_resource
+def ui(df):
     df_ui = df['volatility_ui']
     fig_ui = make_subplots(rows=2, cols=1, shared_xaxes=False)
     fig_ui.add_trace(go.Candlestick(x=df.index,
@@ -814,12 +820,11 @@ def atr(df):
                         visible=True, showticklabels=True)
     fig_ui.update_layout(height=400, showlegend=False)
     l_ui = df['volatility_ui'].iloc[-1]
-    l_atr = df["volatility_atr"].iloc[-1]
-    return l_atr, fig_atr, l_ui, fig_ui
+    return l_ui, fig_ui
 
 
-l_atr, fig_atr, l_ui, fig_ui = atr(df)
-
+l_atr, fig_atr = atr(df)
+l_ui, fig_ui = ui(df)
 
 @st.cache_resource
 def dr(df):
@@ -1677,7 +1682,6 @@ with st.container(border=True):
         att12, at12, att13, att14, att15 = st.columns([2, 1, 1, 1, 3])
         with att12:
             st.subheader("Average True Range")
-            st.subheader("Ulcer Index")
         with att13:
             st.metric("ATR [INR]", l_atr.round(2))
         with at12:
@@ -1691,6 +1695,7 @@ with st.container(border=True):
                 st.metric("Volatility - ATR", "High")
             # else: st.write("Volatility", "Unchartable")
         with att15:
+            st.subheader("Ulcer Index")
             if l_ui < 2.5:
                 st.metric("Ulcer Signal", "Nearing Prev High!!")
             elif l_ui > 5:
