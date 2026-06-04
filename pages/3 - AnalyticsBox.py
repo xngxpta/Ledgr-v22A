@@ -27,8 +27,10 @@ st.set_page_config(page_title='Ledgr | Analytics', layout="wide",
                    initial_sidebar_state="expanded")
 url_stripe = "https://book.stripe.com/9B6bJ3gWS87G97b80q0480f"
 url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
+st.sidebar.link_button("Access Ledgr/Day!", url_stripe, type="primary",
+                       disabled=False, width='content')
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                       disabled=False)
+                        disabled=False, width='content')
 pathtkr = f"{direc}/pages/appdata/tickerlist_y.csv"
 # Icons and Links ###########################
 ytube = f'{direc}/pages/appdata/imgs/ytube.svg'
