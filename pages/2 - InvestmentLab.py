@@ -81,10 +81,7 @@ st.sidebar.caption(
 # ################################################################
 url_stripe = "https://book.stripe.com/cNi6oJ3625Zy97b94u0480g"
 url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
-st.sidebar.link_button("Try Ledgr Pro!", url_stripe, type="primary",
-                       disabled=False, use_container_width=True)
-st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                    disabled=False, use_container_width=True)
+
 # #############################################################
 bc1, bc2 = st.columns(2)
 with bc1:
@@ -97,7 +94,10 @@ with bc2:
 
 
 st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
 st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+
 
 st.stop()
 # ##################################################
