@@ -99,7 +99,6 @@ st.success("LedgrTeam would be elated if you Support us Monthly for a small pric
 st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
 
 
-st.stop()
 # ##################################################
 with st.form("pfinputs"):
     st.subheader("Inputs for Optimization & Allocation")
