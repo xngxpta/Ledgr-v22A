@@ -69,7 +69,15 @@ with mx2:
 # #################################
 
 # Form and Inputs ############################################################
-stock = st.selectbox("Please select stock ticker", tickerlist)
+with st.form():
+    stock = st.selectbox("Please select stock ticker", tickerlist)
+    submitted = st.form_submit_button("Proceed")
+    if not submitted:
+        st.stop()
+    else:
+        pass
+
+
 stock2 = stock + ".NS"
 
 
