@@ -44,17 +44,21 @@ st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
 st.logo(logofile, size="medium", link='https://alphaledgr.com/',
         icon_image=logofile)
 with st.sidebar:
-    st.image(logofile, use_container_width=True)
     st.caption("Select a stock, train the algorithm and predict future scenarios.")
 
+
+
+st.title(":Forecast Engine:")
+st.header("Forecast Price Ranges.")
+st.subheader("Just select a stock ticker.", divider='rainbow')
 st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
 
 st.link_button("Access Pro for a day!", url_stripe, type="primary",
-                       disabled=False, use_container_width=True)
+               disabled=False, use_container_width=True)
 st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
 
 st.link_button("Become a Patron!", url_stripe_2, type="secondary",
-                       disabled=False, use_container_width=True)
+               disabled=False, use_container_width=True)
 st.stop()
 # Variables & Declarations ###############################################
 
@@ -68,7 +72,6 @@ tickerlist = tickerdb["SYMBOL"]
 # Pagework 1 - Inputs ###################################################
 
 
-st.title(":Forecast Engine:")
 
 # Icons and Links ###########################
 ytube = f"{direc}/pages/appdata/imgs/ytube.svg"
@@ -89,8 +92,7 @@ st.sidebar.link_button("Try Ledgr Pro!", url_stripe, type="primary",
                        disabled=False, use_container_width=True)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
                        disabled=False, use_container_width=True)
-st.title("Forecast Price Ranges.")
-st.header("Just select a stock ticker.", divider='rainbow')
+
 
 
 fc1, fc2 = st.columns([2, 3])
