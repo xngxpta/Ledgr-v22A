@@ -100,7 +100,7 @@ st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=Fals
 
 
 # ##################################################
-
+st.stop()
 # ################Pagework ####################################
 x0, x1, x2, x3, x4, x5 = st.columns([2, 1, 1, 1, 1, 1])
 with x0:
