@@ -74,12 +74,9 @@ with st.form(borders=True):
     submitted = st.form_submit_button("Proceed")
     if not submitted:
         st.stop()
-    else:
+    if submitted:
+        stock2 = stock + ".NS"
         pass
-
-
-stock2 = stock + ".NS"
-
 
 @st.cache_resource
 def getdata(stock2):
