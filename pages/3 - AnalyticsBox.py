@@ -75,7 +75,7 @@ with st.form("Stock_inputs"):
         stock2 = stock + ".NS"
         pass
     else:
-        `st.stop()
+        st.stop()
 
 @st.cache_resource
 def getdata(stock2):
