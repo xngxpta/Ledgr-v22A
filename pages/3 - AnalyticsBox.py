@@ -142,7 +142,6 @@ figOHLC.add_trace(go.Bar(
     x=df.index, y=df['Volume'], name='Volume Traded', showlegend=False),
     row=2, col=1)
 figOHLC.update_layout(xaxis_rangeslider_visible=False, showlegend=False)
-st.stop()
 
 @st.cache_resource
 def firm_info(stock):
