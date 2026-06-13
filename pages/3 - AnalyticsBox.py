@@ -69,13 +69,14 @@ with mx2:
 # #################################
 
 # Form and Inputs ############################################################
-with st.form("Stock_inputs"):
-    stock = st.selectbox("Please select stock ticker", tickerlist)
-    submitted = st.form_submit_nuttton("Proceed")
+
+stock = st.selectbox("Please select stock ticker", tickerlist)
+    # submitted = st.form_submit_nuttton("Proceed")
   
-    if submitted:
-        stock2 = stock + ".NS"
-        pass
+   # if submitted:
+stock2 = stock + ".NS"
+
+
 
 @st.cache_resource
 def getdata(stock2):
