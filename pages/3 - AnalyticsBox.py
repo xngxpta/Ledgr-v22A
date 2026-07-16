@@ -25,8 +25,8 @@ from ta import add_all_ta_features
 direc = os.getcwd()
 st.set_page_config(page_title='Ledgr | Analytics', layout="wide",
                    initial_sidebar_state="expanded")
-url_stripe = "https://book.stripe.com/9B6bJ3gWS87G97b80q0480f"
-url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
+url_stripe = "https://buy.stripe.com/6oU28t21Y2NmbfjdkK0480h"
+url_stripe_2 = "https://buy.stripe.com/dR64iacsh6bx9zi5kk"
 st.sidebar.link_button("Access Ledgr for a Day!", url_stripe, type="primary",
                        disabled=False, use_container_width=True)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
@@ -1702,29 +1702,24 @@ with st.container(border=True):
                 st.metric("Volatility - ATR", "High")
         st.info(""" Average True Range or ATR is used to measure market
 volatility. It's calculated by averaging the true range, which considers the
-price movement between the day's high and low, and the previous day's closing
+price        with bx2:
+ movement between the day's high and low, and the previous day's closing
 price, over a specified period, typically 14 days.""")
         st.plotly_chart(fig_atr, use_container_width=True)
 
         
         st.subheader("Ulcer Index")
-        if l_ui < 2.5:
-            st.metric("Ulcer Signal", "Nearing Prev High!!")
-        elif l_ui > 5:
-            st.metric("Ulcer Signal", "Far from Prev High")
-        else:
-            st.metric("Ulcer Signal", "Median Levels")
-        st.info("""The Ulcer Index is a popular technical indicator that lets
-one know the maximum downside risk before entering a trade.""")
-        st.plotly_chart(fig_ui, use_container_width=True)
-        
-        
+        st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+# ##################################################
+        pass        
     elif choix3 == "Bollinger Bands (BB)":
         df_bb1, df_bb2, df_bb_ind, l_bbp, fig_bb, fig_bb2, l_bbhi, l_bbli, l_bbw = bb(
             df)
         bx2, bx3, bx4, bx5 = st.columns([2, 1, 1, 2])
-        with bx2:
-            st.subheader("Bollinger Bands")
+        st.subheader("Bollinger Bands")
         with bx3:
             if l_bbhi == 1:
                 st.metric("BB Hi Signal", "Nearing Highs>Sell!")
@@ -1824,7 +1819,7 @@ one know the maximum downside risk before entering a trade.""")
         st.info("""Gauge the spread from the Donchian Median Levels .""")
         st.plotly_chart(fig_dcw, use_container_width=True)
         st.info("""Calculate Donchian Channels using the 100th and 0th
-percentile ranks.""")
+                   percentile ranks.""")
         st.plotly_chart(fig_dcp, use_container_width=True)
 
 

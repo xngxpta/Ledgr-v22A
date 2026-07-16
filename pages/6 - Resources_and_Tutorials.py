@@ -14,7 +14,7 @@ logofile = f'{direc}/pages/appdata/imgs/Ledgr_Logo_F2.png'
 st.logo(logofile, size="medium", link='https://alphaledgr.com/',
         icon_image=logofile)
 url_stripe = "https://book.stripe.com/cNi6oJ3625Zy97b94u0480g"
-url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
+url_stripe_2 = "https://buy.stripe.com/dR64iacsh6bx9zi5kk"
 url_ytube = "https://www.youtube.com/@LedgrInc"
 url_fb = "https://www.facebook.com/share/1BnXaYvRzV/"
 url_insta = 'https://www.instagram.com/alphaledgr/'

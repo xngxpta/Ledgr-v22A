@@ -18,6 +18,17 @@ pdf_viewer(
     viewer_align="center",             # Center alignment
     show_page_separator=True           # Show separators between pages
 )
+logofile = f'{direc}/pages/appdata/imgs/Ledgr_Logo_F2.png'
+st.logo(logofile, size="medium", link='https://alphaledgr.com/',
+        icon_image=logofile)
+url_stripe = "https://buy.stripe.com/6oU28t21Y2NmbfjdkK0480h"
+url_stripe_2 = "https://buy.stripe.com/dR64iacsh6bx9zi5kk"
+st.sidebar.image(logofile, use_container_width=True)
+st.sidebar.link_button("Access/day!", url_stripe, type="primary",
+                       disabled=False, use_container_width=True)
+st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
+                       disabled=False, use_container_width=True)
+
 st.write("  ---------------------------------------------------------------  ")
 # # ###################################################################
 with st.container():

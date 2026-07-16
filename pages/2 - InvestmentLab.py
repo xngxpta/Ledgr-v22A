@@ -79,8 +79,8 @@ st.sidebar.caption(
                    Global Counterparts."""
 )
 # ################################################################
-url_stripe = "https://book.stripe.com/cNi6oJ3625Zy97b94u0480g"
-url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
+url_stripe = "https://buy.stripe.com/6oU28t21Y2NmbfjdkK0480h"
+url_stripe_2 = "https://buy.stripe.com/dR64iacsh6bx9zi5kk"
 
 # #############################################################
 bc1, bc2 = st.columns(2)
