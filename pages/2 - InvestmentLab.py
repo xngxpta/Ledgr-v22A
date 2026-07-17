@@ -41,7 +41,7 @@ import streamlit.components.v1 as components
 
 GA_ID = "G-4MRDCEFGB4"
 
-gtag_html = f("""
+gtag_html = """
 <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -49,7 +49,7 @@ gtag_html = f("""
   gtag('js', new Date());
   gtag('config', '{GA_ID}');
 </script>
-""")
+"""
 # Embed the script
 components.html(gtag_html, height=0)
 
