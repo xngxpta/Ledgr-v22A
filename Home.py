@@ -13,7 +13,7 @@ import matplotlib.animation as animation
 import streamlit_authenticator as stauth
 import streamlit.components.v1 as components
 
-GA_ID = "G- G-4MRDCEFGB4 "
+GA_ID = "G-4MRDCEFGB4"
 
 gtag_html = f"""
 <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
