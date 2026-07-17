@@ -61,11 +61,11 @@ with st.sidebar:
 st.title(":Forecast Engine:")
 st.header("Forecast Price Ranges.")
 st.subheader("Just select a stock ticker.", divider='rainbow')
-st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
 
 st.link_button("Access Pro for a day!", url_stripe, type="primary",
                disabled=False, use_container_width=True)
-st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+st.success("LedgrTeam would be elated if you Support the project on a monthly basis for a small donation of INR 349/-")
 
 st.link_button("Become a Patron!", url_stripe_2, type="secondary",
                disabled=False, use_container_width=True)
