@@ -87,9 +87,6 @@ linkedin = f"{direc}/pages/appdata/imgs/linkedin.svg"
 ledgrblog = f"{direc}/pages/appdata/imgs/Ledgr_Logo_F1.png"
 icon_size = 100  # ####################################
 
-
-
-
 st.title("Your Wealth Dashboard and Global Finances")
 
 @st.cache_resource
