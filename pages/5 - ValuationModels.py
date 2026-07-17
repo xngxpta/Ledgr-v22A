@@ -643,7 +643,7 @@ with st.container(border=True):
             other payables.
             A current ratio that is in line with the industry average or
             slightly higher is generally considered acceptable.""")
-    st.metric("Current Ratio", cr)
+    st.metric("Current Ratio", cr.round(2))
     st.markdown("""A Firm with a CR less than one means that its Equity heavy
                 and shall not be able to manage its short term payouts""")
 
