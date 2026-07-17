@@ -41,7 +41,7 @@ import streamlit.components.v1 as components
 
 GA_ID = "G-4MRDCEFGB4"
 
-gtag_html = f"""
+gtag_html = f("""
 <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -49,7 +49,7 @@ gtag_html = f"""
   gtag('js', new Date());
   gtag('config', '{GA_ID}');
 </script>
-"""
+""")
 # Embed the script
 components.html(gtag_html, height=0)
 
@@ -105,7 +105,7 @@ with bc2:
     st.video("https://youtu.be/wu0nDaMyIG4?si=f7Y0v_I_Am7JwGe6")
 
 
-st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
 st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
 st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
 st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
