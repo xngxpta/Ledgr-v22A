@@ -22,11 +22,21 @@ from prophet import Prophet
 from prophet.plot import plot_plotly, plot_components_plotly
 import os
 # Page Setup ##############################################
-# st.#set_page_config(page_title='Ledgr | Forecasting Engine',
-#            layout="wide", initial_sidebar_state="expanded")
-# from auth.session import init_session
+import streamlit.components.v1 as components
 
-# init_session()
+GA_ID = "G-4MRDCEFGB4"
+
+gtag_html = f"""
+<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', '{GA_ID}');
+</script>
+"""
+# Embed the script
+components.html(gtag_html, height=0)
 
 direc = os.getcwd()
 
