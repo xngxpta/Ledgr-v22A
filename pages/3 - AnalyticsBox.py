@@ -1469,10 +1469,10 @@ with st.container(border=True):
             elif l_rsi21 < l_rsi:
                 st.metric("RSI Signal", "Purchase")
             else:
-                st.warning("Inflection ongoing!!")
+                st.warning("Inflection around!")
         st.info("""The RSI Indicator enables one to measure the rate of change
 in a stock's price over time, accounting in volume or in a momentum metric,
-in other words""")
+in other words, it measures the state of a security's price in an adaptive market by gauging the inertia of price changes and the directionality and positioning of the indicator illustrates its transactional condition i.e. whether it is overbought/sold or trading within limits""")
         st.plotly_chart(fig_rsi, use_container_width=True)
         st.info("""Investigate whether an asset has been Overbought or Oversold,
 and to what level. An RSI of above 70 indicates an Overbought Condition, and one below 30 indicates that it is Oversold. The Zero line seperates the Buy and Sell regions.""")
