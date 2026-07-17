@@ -1840,7 +1840,7 @@ with st.container(border=True):
         st.metric("Spread against DR", delta_r.round(2))
     with cr5:
         if delta_r > 0:
-            sign_r = "Positive"
+            sign_r == "Positive"
         elif delta_r < 0:
             sign_r == "Negative"
         else:
