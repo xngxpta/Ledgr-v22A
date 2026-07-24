@@ -51,7 +51,7 @@ url_insta = 'https://www.instagram.com/alphaledgr/'
 url_blog = 'https://www.alphaledgr.com/Blog'
 url_linkedin = "https://www.linkedin.com/company/ledgrapp/"
 url_stripe = "https://buy.stripe.com/6oU28t21Y2NmbfjdkK0480h"
-url_stripe_2 = "https://buy.stripe.com/6oUbJ35eaew4bfj0xY0480e"
+url_stripe_2 = "https://buy.stripe.com/dR64iacsh6bx9zi5kk"
 st.sidebar.link_button("Access Pro / Day!", url_stripe, type="primary",
                         disabled=False, use_container_width=True)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
