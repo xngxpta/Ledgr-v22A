@@ -1843,6 +1843,7 @@ st.write("  --------------  ")
 with st.container(border=True):
     l_dr, fig_dr, l_dlr, delta_r, fig_dlr = dr(df)
     l_cr, fig_cr = cr(df)
+  sign_r = ""
     cr1, cr2, cr3, cr4, cr5 = st.columns([2, 1, 1, 1, 1])
     with cr1:
         st.header("*Returns Indicators*", divider='rainbow')
