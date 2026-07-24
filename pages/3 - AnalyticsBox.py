@@ -45,7 +45,7 @@ url_stripe_2 = "https://buy.stripe.com/dR64iacsh6bx9zi5kk"
 st.sidebar.link_button("Access Ledgr for a Day!", url_stripe, type="primary",
                        disabled=False, use_container_width=True)
 st.sidebar.link_button("Become a Patron!", url_stripe_2, type="primary",
-                        disabled=False, use_container_width=True)
+                       disabled=False, use_container_width=True)
 pathtkr = f"{direc}/pages/appdata/tickerlist_y.csv"
 # Icons and Links ###########################
 ytube = f'{direc}/pages/appdata/imgs/ytube.svg'
@@ -82,7 +82,6 @@ with mx1:
 with mx2:
     st.video('https://youtu.be/CkMui1TdMqg?si=o1Jq44z8wxWYMsKn')
 # #################################
-
 # Form and Inputs ############################################################
 
 stock = st.selectbox("Please select stock ticker", tickerlist)
