@@ -1379,13 +1379,12 @@ with st.container(border=True):
         with ich3:
             st.write("Signal in the Works!!")
         st.plotly_chart(fig_ichi, use_container_width=True)
-        st.info("The Ichimoku Signal Indicates....")
         ic33, ic34 = st.columns(2)
         with ic33:
             st.plotly_chart(fig_ichi2, use_container_width=True)
         with ic34:
             st.plotly_chart(fig_ichi3, use_container_width=True)
-        st.info("The Ichimoku Signal Indicates....")
+        st.info("The Ichimoku Cloud, or Ichimoku Kinko Hyo, is an all-in-one technical analysis indicator that shows trend direction, momentum, and dynamic support and resistance. It consists of five core components: the Conversion Line, Base Line, Leading Span A, Leading Span B, and Lagging Span.")
 
     elif choix1 == "Parabolic Stop And Reverse (Parabolic SAR)":
         l_psar, fig_psar, l_psar_downi, l_psar_upi = psar(df)
