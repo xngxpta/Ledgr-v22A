@@ -1421,19 +1421,7 @@ with st.container(border=True):
         st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
         st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
         st.stop() 
-        l_psar, fig_psar, l_psar_downi, l_psar_upi = psar(df)
-        c44, c45, c46 = st.columns(3)
-        with c44:
-            st.subheader("Parabolic Stop And Reverse")
-        with c45:
-            st.metric("Parabolic SAR", l_psar.round(2))
-        with c46:
-            if l_psar_upi == 1:
-                st.metric("PSAR Signal", f"{stock} in an Uptrend !!")
-            elif l_psar_downi == 1:
-                st.metric("PSAR Signal", f"{stock} in a Downtrend !!")
-            else:
-                st.metric("PSAR Signal", f"{stock} Trending Sideways")
+        
         st.info("""The Parabolic SAR or PSAR Signal visually displays as a series of dots on a chart, which are positioned above or below the price. When the dots are below the price, it suggests an uptrend, while dots above the price indicate a downtrend. When the dots change position from below to above the price (or vice versa), it may signal a potential trend reversal.""")
         st.plotly_chart(fig_psar, use_container_width=True)
         st.info("""The Parabolic SAR or PSAR Signal can also be used as a dynamic stop-loss mechanism to protect unrealized gains""")
