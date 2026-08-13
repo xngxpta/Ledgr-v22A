@@ -1280,7 +1280,11 @@ with st.container(border=True):
         st.info("The Average Directional Index illustrates whether the Price Trend is going up or down in the current period, thereby enabling traders and investors to infer the upcoming scenarios and take their trading or investing decisions accordingly")
 
     elif choix1 == "Trix (TRIX)":
-
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+                
         l_trix, fig_trix, slope_trix = trix(df)
         tri1, tri2, tri3, tri4 = st.columns([1, 1, 1, 1])
         with tri1:
@@ -1315,6 +1319,11 @@ with st.container(border=True):
         st.plotly_chart(fig_trix, use_container_width=True)
         st.info("TRIX is an oscillator, meaning it oscillates around a zero line, and can be used as a momentum indicator. TRIX focuses on the rate of change of a triple exponential moving average, providing a unique perspective on price movements. It aims to filter out insignificant price fluctuations and highlight long-term trends")
     elif choix1 == "Mass Index (MI)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()        
         l_mi, fig_mi = mi(df)
         m2, m3 = st.columns([3, 1])
         with m2:
@@ -1326,6 +1335,11 @@ with st.container(border=True):
         st.info("""A 'reversal bulge' is a key signal. This occurs when the Mass Index rises above a certain value (like 27) and then falls back below a threshold (like 26.5). This suggests that the price range has expanded and then contracted, potentially indicating a trend reversal. The values here are unique for every security.""")
 
     elif choix1 == "Commodity Channel Index (CCI)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_cci, fig_cci = cci(df)
         cc1, cc2, cc3 = st.columns([2, 2, 3])
         with cc1:
@@ -1344,6 +1358,11 @@ with st.container(border=True):
         st.info("""Above +100: Indicates that the current price is significantly above its average, suggesting a potentially overbought condition or a strong uptrend. Consequently, CCI below -100: Indicates that the current price is significantly below its average, suggesting an oversold condition or a strong downtrend. Outliers above and below +/- 100 indicate a strong reversal in the short term.""")
 
     elif choix1 == "Detrended Price Oscillator (DPO)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop() 
         l_dp, fig_dpo = dpo(df)
         dp1, dp2 = st.columns([3, 1])
         with dp1:
@@ -1354,6 +1373,11 @@ with st.container(border=True):
         st.plotly_chart(fig_dpo, use_container_width=True)
         st.info("""The Detrended Price Oscillator is designed to focus on short-term price cycles by filtering out long-term trends. It does this by shifting past price data against a Simple Moving Average (SMA). This approach helps identify periods of potential overbought or oversold conditions and the duration of price cycles.""")
     elif choix1 == "KST Oscillator (KST)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop() 
         l_kst, fig_kst, fig_kst_sig, l_kst_sig = kst(df)
         ks1, ks3, ks4 = st.columns([2, 1, 1])
         with ks1:
@@ -1378,6 +1402,11 @@ with st.container(border=True):
             st.metric("Ichimoku Index", l_ichi.round(2))
         with ich3:
             st.write("Signal in the Works!!")
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop() 
         st.plotly_chart(fig_ichi, use_container_width=True)
         ic33, ic34 = st.columns(2)
         with ic33:
@@ -1387,6 +1416,11 @@ with st.container(border=True):
         st.info("The Ichimoku Cloud, or Ichimoku Kinko Hyo, is an all-in-one technical analysis indicator that shows trend direction, momentum, and dynamic support and resistance. It consists of five core components: the Conversion Line, Base Line, Leading Span A, Leading Span B, and Lagging Span.")
 
     elif choix1 == "Parabolic Stop And Reverse (Parabolic SAR)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop() 
         l_psar, fig_psar, l_psar_downi, l_psar_upi = psar(df)
         c44, c45, c46 = st.columns(3)
         with c44:
@@ -1418,6 +1452,11 @@ with st.container(border=True):
                 st.metric("STCI Signal", "In Buy Zone !!")
             else:
                 st.metric("STCI Signal", "Probable Sideways Movement")
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop() 
         st.info("The Schaff Trend Cycle (STC) is used in trading and investing to identify trends and generate trading signals. It was developed to improve upon trading moving averages by incorporating cycle analysis")
         st.plotly_chart(fig_stc, use_container_width=True)
         st.info("""The STC is designed to identify trends and trend reversals by measuring the strength of the trend and the speed of price changes. The STC is an oscillator, which means that it measures the velocity of price movements.""")
@@ -1476,6 +1515,11 @@ in other words, it measures the state of a security's price in an adaptive marke
 and to what level. An RSI of above 70 indicates an Overbought Condition, and one below 30 indicates that it is Oversold. The Zero line seperates the Buy and Sell regions.""")
         st.plotly_chart(fig_rsi_b, use_container_width=True)
     elif choix2 == "Stochastic RSI (SRSI)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_srsi, fig_rsik, l_srsi_k, l_srsi_d, fig_rsik2 = srsi(df)
         c46, c47, c48, c49 = st.columns(4)
         with c46:
@@ -1503,6 +1547,11 @@ providing an oscillator that fluctuates between 0 and 100.""")
 like the RSI, TSI or MACD""")
 
     elif choix2 == "True Strength Index (TSI)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         fig_tsi, l_tsi, hi_lim_tsi, lo_lim_tsi = tsi(df)
         ts1, ts2, ts3 = st.columns(3)
         with ts1:
@@ -1527,6 +1576,11 @@ important to use it in conjunction with other indicators and to be aware of its
 limitations""")
 
     elif choix2 == "Ultimate Oscillator (UO)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_uo, fig_uo = uo(df)
         uoc1, uoc2, uoc3 = st.columns(3)
         with uoc1:
@@ -1554,6 +1608,11 @@ traditional oscillators that rely on a single timeframe, the UO combines these
 timeframes, aiming to provide a more reliable momentum reading""")
 
     elif choix2 == "Stochastic Oscillator (SR)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         st.subheader("Stochastic Oscillator")
         st.info("""The Stochastic Oscillator measures the relationship between
 a security's current closing price and its price range over a specific period.
@@ -1566,6 +1625,11 @@ a potential buy signal. """)
         st.plotly_chart(fig_stoch, use_container_width=True)
         st.plotly_chart(fig_stoch_sig, use_container_width=True)
     elif choix2 == "Williams %R (WR)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_wr, fig_wr = wr(df)
         wrc1, wrc2, wrc3 = st.columns(3)
         with wrc1:
@@ -1589,6 +1653,11 @@ with values closer to 0 suggesting overbought conditions and values closer to
 -100 suggesting oversold conditions.""")
 
     elif choix2 == "Awesome Oscillator (AO)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_ao, fig_ao = ao(df)
         ao1, ao2, ao3 = st.columns(3)
         with ao1:
@@ -1614,6 +1683,11 @@ considered a potential bullish signal, and when it crosses below, it's a
 potential bearish signal.
  """)
     elif choix2 == "Kaufmans Adaptive Moving Average (KAMA)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         st.subheader("Kaufmans Adaptive Moving Average")
         fig_kama, l_kama = kama(df)
         st.info("""KAMA diverges away for a change in a securitys price. When
@@ -1629,6 +1703,11 @@ moving higher, it shows an uptrend. As compared to the Simple Moving Average,
 the KAMA indicator is less likely to generate false signals that may cause a
 trader to incur losses.""")
     elif choix2 == "Rate of Change (ROC)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_roc, fig_roc = roc(df)
         rc11, rc12 = st.columns([2, 1])
         with rc11:
@@ -1643,6 +1722,11 @@ conditions, spot divergences, and confirm trends. A Positive ROC means an
 upward trend, and a negative ROC, therefore, means a downward trend in the
 security's price""")
     elif choix2 == "Percentage Price Oscillator (PPO)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         st.subheader("Percentage Price Oscillator")
         fig_ppo, fig_ppo_signal = ppo(df)
         st.info("""measures the percentage difference between two Exponential
@@ -1656,6 +1740,11 @@ indicates a bearish trend (short-term EMA is declining faster than the long-term
 EMA). Zero Line crossovers indicate trend reversals. """)
         # st.plotly_chart(fig_ppo_hist, use_container_width=True)
     else:
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         st.subheader("Percentage Volume Oscillator (PVO)")
         fig_pvo, fig_pvo_signal = pvo(df)
         st.markdown("""PVO measures the momentum of volume changes by comparing
@@ -1722,10 +1811,11 @@ price, over a specified period, typically 14 days.""")
 
         
         st.subheader("Ulcer Index")
-        st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
         st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
         st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
         st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
 # ##################################################
         pass        
     elif choix3 == "Bollinger Bands (BB)":
@@ -1768,6 +1858,11 @@ price, over a specified period, typically 14 days.""")
                 price movements, making it an effective tool for
                 anticipating breakouts""")
     elif choix3 == "Keltner Channel (KC)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         df_k, df_k_ind, fig_k, fig_k2, fig_k_ind, fig_k3, l_kcp, l_kcw, l_kchi, l_kcli = kc(
             df)
         kcx1, kcx2, kcx3, kcx4, kcx5 = st.columns(5)
@@ -1823,6 +1918,11 @@ price, over a specified period, typically 14 days.""")
                 st.metric("%-tile Signal", "*Low Region*")
             else:
                 st.metric("%-tile Signal", "*Mid Region*")
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         st.info("""Donchian Channels are used to determine the relative
                 volatility of a market and the potential for price breakouts.
                 The area between the upper and lower bands is called
@@ -1963,6 +2063,11 @@ with st.container(border=True):
             indicates underlying buying pressure (accumulation) that could
 foreshadow a bullish price reversal.""")
     elif choix5 == "On-Balance Volume (OBV)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_obv, fig_obv = obvf(df)
         ob1, ob2 = st.columns([3, 1])
         with ob1:
@@ -1975,6 +2080,11 @@ foreshadow a bullish price reversal.""")
         st.info("During a trading range, if the OBV is rising, accumulation may be taking place—a warning of an upward breakout, and in case it is falling, there are chances of a downward breakout.")
 
     elif choix5 == "Chaikin Money Flow (CMF)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_cmf, fig_cmf = cmf(df)
         cm1, cm2, cm3 = st.columns([2, 1, 1])
         with cm1:
@@ -1993,6 +2103,11 @@ foreshadow a bullish price reversal.""")
         st.info("The Chaikin Money Flow (CMF) is a volume-weighted average of accumulation and distribution over a specified period. The standard CMF period is 21 days.")
         st.info("The principle behind the Chaikin Money Flow is the nearer the closing price is to the high, the more accumulation has taken place. Conversely, the nearer the closing price is to the low, the more distribution has taken place. If the price action consistently closes above the bar's midpoint on increasing volume, the Chaikin Money Flow will be positive. Conversely, if the price action consistently closes below the bar's midpoint on increasing volume, the Chaikin Money Flow will be a negative value.")
     elif choix5 == "Force Index (FI)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_fi, fig_fi = fi(df)
         l_fi2 = l_fi/1000000
         fo1, fo2 = st.columns([3, 1])
@@ -2003,6 +2118,11 @@ foreshadow a bullish price reversal.""")
         st.info("The Force Index is calculated by subtracting yesterday's close from today's close and multiplying the result by today's volume. If closing prices are higher today than yesterday, the force is positive. If closing prices are lower than yesterday's, the force is negative.")
         st.plotly_chart(fig_fi)
     elif choix5 == "Ease of Movement (EoM, EMV)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         fig_em, fig_sma_em, l_em, l_sma_em, delta_em = em(df)
         sm3, sm4, sm5, sm6 = st.columns(4)
         with sm3:
@@ -2020,6 +2140,11 @@ foreshadow a bullish price reversal.""")
         st.plotly_chart(fig_em, use_container_width=True)
         st.info("A rising EOM suggests that prices are moving upward with relative ease, potentially indicating a strong upward trend, conversely, A falling EOM may indicate that prices are moving downward more easily, potentially signaling a weakening trend.A cross above zero suggests that prices are moving upward with more ease, while a cross below zero suggests downward movement with more ease ")
     elif choix5 == "Volume-price Trend (VPT)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_vp, fig_vpt = vpt(df)
         vp1, vp2 = st.columns([3, 1])
         with vp1:
@@ -2034,6 +2159,11 @@ foreshadow a bullish price reversal.""")
         st.info("A rising VPT with increasing volume suggests a strong bullish trend, and a falling VPT with decreasing volume suggests a strong bearish trend")
         st.info("In congruence, A rising VPT with decreasing volume might indicate a weakening trend, whereas, a falling VPT with increasing volume might indicate a weakening trend in reverse, thus enabling one to estimate Divergences between the price and VPT can signal potential trend reversals")
     elif choix5 == "Negative Volume Index (NVI)":
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_nvi, fig_nvi = nvi(df)
         nv1, nv2 = st.columns([3, 1])
         with nv1:
@@ -2044,6 +2174,11 @@ foreshadow a bullish price reversal.""")
         st.plotly_chart(fig_nvi, use_container_width=True)
         st.info("A rising NVI may indicate that smart money is accumulating, potentially supporting a bullish trend. A declining NVI might suggest institutional selling or bearish sentiment. Furthermore, The NVI focuses on periods of reduced market activity, thereby filtering out the noise from high-volume day.")
     else:
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         l_vw, fig_vwap = vwap(df)
         vv1, vv2 = st.columns([3, 1])
         with vv1:
@@ -2051,6 +2186,11 @@ foreshadow a bullish price reversal.""")
         with vv2:
             st.metric("Volume Volume-Weighted Price", l_vw.round(2))
         st.write("Used to assess the average price of a security over a specific period, considering both the price and the volume of trades, VWAP is calculated by multiplying the price of each trade by its volume, summing these products, and then dividing by the total volume of trades during that period")
+        st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
+        st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
+        st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
+        st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
+        st.stop()
         st.plotly_chart(fig_vwap, use_container_width=True)
         st.info("VWAP, or Volume-Weighted Average Price, is a technical indicator used in intraday charts to determine the average price of a security based on volume and price. It's essentially a benchmark for determining if a stock is undervalued or overvalued during a trading day.")
 st.write("  --------------  ")
@@ -2322,12 +2462,11 @@ st.write("  --------------  ")
            #     st.write("Data Unreported")
         #st.write("  --------  ")
             # st.subheader("Institutional Risk Profile")
-st.warning("Please Click the Access/Day @ INR 99/- to access the complete set of tools!!")
+st.warning("Please Click the Access/Day @ INR 149.90/- to access the complete set of tools!!")
 st.link_button("Access Pro for a day!", url_stripe, type="primary", disabled=False, use_container_width=True)
-st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 349/-")
-
+st.success("LedgrTeam would be elated if you Support us Monthly for a small price of INR 399/-")
 st.link_button("Become a Patron!", url_stripe_2, type="secondary", disabled=False, use_container_width=True)
-
+        
 st.write("  --------------  ")
 column1, column2, column3, column4, column5 = st.columns([1, 1, 1, 2, 1])
 with column1:
